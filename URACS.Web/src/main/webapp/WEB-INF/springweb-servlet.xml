@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd http://www.springframework.org/schema/mvc   
+        http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd"
+	default-lazy-init="true">
+
+	<tx:annotation-driven />
+	<context:annotation-config />
+	
+	<mvc:annotation-driven />
+	<mvc:default-servlet-handler/>
+	
+	<!-- 拦截器 -->  
+   <mvc:interceptors>
+    	<bean class="com.tavenli.interceptors.WebDefaultInterceptor" />
+    	
+    	<mvc:interceptor>    
+        	<mvc:mapping path="/u/**" /> 
+        	<bean class="com.tavenli.interceptors.UAuthorizeInterceptor"></bean>    
+    	</mvc:interceptor>
+
+    	
+	</mvc:interceptors>
+	
+	<context:component-scan base-package="com.tavenli" use-default-filters="false">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/" p:suffix=".jsp" />
+
+
+	<bean	class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<ref bean="stringHttpMessageConverter" />
+				<ref bean="mappingJacksonHttpMessageConverter" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="stringHttpMessageConverter"	class="org.springframework.http.converter.StringHttpMessageConverter" />
+
+	<bean id="mappingJacksonHttpMessageConverter"	class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" />
+
+</beans>

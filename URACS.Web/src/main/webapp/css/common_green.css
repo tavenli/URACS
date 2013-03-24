@@ -1,0 +1,177 @@
+@charset "utf-8";
+body,ul,ol,li,p,h1,h2,h3,h4,h5,h6,form,fieldset,img,div,dd,dt{outline:0; margin:0; padding:0; list-style:none; border:0; font-family:"微软雅黑","宋体","新宋体"; font-size:12px;}
+body{background:url(images/left_bg.gif) 0 0 repeat-y #F6F6F6}
+input,select,textarea{outline:0; margin:0; padding:0; font-family:"微软雅黑","宋体","新宋体"; font-size:12px;}
+a{text-decoration:none; outline:none; color:#146295; font-family:"微软雅黑","宋体","新宋体";}
+a:hover{color:#57A000;} /* mle */
+
+.roman{font-family:"宋体","新宋体";}
+
+.input{outline:0; border:1px #CCC solid; padding:5px; height:15px; line-height:15px;}
+.select{padding:4px; height:27px; border:1px #CCC solid;}
+.table{margin:0 auto; padding:0; width:98%; border:0;}
+.td_align td{text-align:center;}
+.top_line{border-top:1px #CCC solid;}
+.td_top_line td{border-top:1px #999 solid;}
+
+.hide{display:none;}
+
+/* 圆角，CSS3支持 */
+.rounded{border:1px #CCC solid; background:#FFF; -moz-border-radius:5px; -webkit-border-radius:5px; border-radius:5px;}
+
+.dark_gray{color:#666;} /* 深灰色 */
+.red{color:#F00;} /* 红色 */
+.blue{color:#00F;} /* 蓝色 */
+.green{color:#009900; font-family:"新宋体";} /* 绿色 */
+.b{font-weight:bold;} /* 粗体 */
+
+#body_box{background:url(images/main_bg.png) top center repeat-x; margin:0 0 0 230px;} /* 主体框架顶部渐变横条 */
+
+.field_head{font-weight:bold; text-align:center;} /* 列表头部加粗、居中字体 */
+
+.top_error{display:none;} /* 顶部错误框 */
+
+.rule{background:url(images/sprite_green.png) 0 -304px no-repeat #FFF;} /* 文本域标尺 */
+
+/* 列表 */
+.list{margin:0 auto; padding:0; width:98%;}
+.list td{margin:0; height:30px; padding:5px;}
+.list .name{text-align:right;}
+.list .field{color:#F60; font-family:Tahoma,Geneva,sans-serif; line-height:20px;}
+.list .notes{color:#999;}
+
+/* 主体框架表头 */
+.box_top{border-bottom:1px #CCC solid; height:40px; background:url(images/content_box_bg.gif) #F6F6F6;}
+.box_top .title{padding:0 0 0 10px; font-weight:bold;}
+.box_top table{margin:0 0 0 auto;}
+.box_top table td{padding:0 10px 0 0;}
+
+/* 交换背景色 js函数样式 */
+.even{background-color:#FFFFFF;} /* 偶数行背景色 #EDF5FD */
+.odd{background-color:#F0F0F0;} /* 奇数行背景色 */
+.activity{background-color:#CEFFCE;} /* 活动行背景色 #FFFFCC */ /* mle */
+
+.operation img{width:16px; height:16px; border:0; margin:0 6px 0 0;} /* 操作选项图标间距 */
+
+/* #titlediv_jq{} 固定DIV宽度 */
+.title_div{background:#FFF; border:1px #CCC solid; padding:5px; line-height:20px; position:absolute; z-index:9999; color:#F60; word-break:break-all;} /* title标签内容转div js函数样式 */
+
+/* 表单提交按钮样式 a */
+.submit{width:120px; height:35px; line-height:35px; text-align:center; display:block; color:#FFF; background:url(images/sprite_green.png) -4px -220px no-repeat;}
+.submit:hover{color:#FFF; text-decoration:none; background-position:-4px -261px;}
+
+.reset{letter-spacing:10px; padding:0 0 0 10px; width:110px;} /* 重置按钮字符间距 a */
+
+/* 上传图片预览规格，缺省值，可以在文件中重定义 */
+.upload_preview{width:180px; border:0;}
+
+.all_action{background:url(images/arrow_ltr.png) 10px 0 no-repeat; padding:0 0 0 50px; height:30px;} /* 全选操作，带向上箭头 */
+
+/* 注意、警告框 */
+.attention{background:url(images/operation/exclamation.png) 10px 11px no-repeat #FFFBCC; border:1px #E6DB55 solid; color:#333; margin:10px; padding:8px 8px 8px 35px; line-height:22px;}
+/* 信息提示框 */
+.information{background:url(images/operation/information.png) 10px 11px no-repeat #DBE3FF; border:1px #A2B4EE solid; color:#585B66; margin:10px; padding:8px 8px 8px 35px; line-height:22px;}
+/* 成功、正确消息框 */
+.success{background:url(images/operation/accept.png) 10px 11px no-repeat #D5FFCE; border:1px #9ADF8F solid; padding:8px 8px 8px 35px; margin:10px; line-height:22px;}
+/* 错误、失败消息框 */
+.error{background:url(images/operation/delete.png) 10px 11px no-repeat #FFCECE; border:1px #DF8F8F solid; color:#665252; margin:10px; padding:8px 8px 8px 35px; line-height:22px;}
+.attention ol,.information ol,.success ol,.error ol{background:url(images/cross_grey_small.png) center center no-repeat; float:right; cursor:pointer; width:15px; height:15px; margin:auto 0 auto auto;}
+
+/* div */
+.divrows{}
+.divrows ul{clear:both;}
+.divrows ul li{float:left; padding:5px;}
+
+/* 上传框架布局 */
+.upload{clear:both; height:27px; margin:0 0 5px 0;}
+.upload ul{clear:both;}
+.upload ul li{float:left; padding:0 5px 0 0; height:27px; line-height:27px;}
+
+/* 基本信息 & 高级参数切换按钮 */
+.basic_button{display:block; width:80px; height:27px; line-height:27px; padding:3px 0 0 0; color:#333; text-align:center; position:absolute; margin:-9px auto auto -160px; background:url(images/switch_bg.png) 0 0 no-repeat;}
+.advanced_button{display:block; width:80px; height:27px; line-height:27px; padding:3px 0 0 0; color:#333; text-align:center; position:absolute; margin:-9px auto auto -90px;}
+.advanced_button:hover,.basic_button:hover{color:#333;}
+
+/* 左侧菜单 */
+#frame_side{color:#999; padding:0; margin:0; width:230px; left:0; top:60px; position:absolute; vertical-align:top;}
+#frame_side .logo{width:220px; padding:0 0 0 10px; height:50px; background:url(images/sprite_green.png) -202px -213px no-repeat;}
+#frame_side .welcome{width:220px; padding:0 0 0 10px; text-align:center; line-height:22px;}
+#frame_side #menu ol .item{display:block; padding:12px 10px; font-size:15px; letter-spacing:2px; text-align:right; color:#FFF; background:url(images/sprite_green.png) -132px -27px no-repeat;}
+#frame_side #menu ol .item_current{background-position:-132px -74px; color:#000;}
+#frame_side #menu ol ul{display:none;}
+#frame_side #menu ol ul li{padding:0 15px 0 0; height:30px; line-height:30px; letter-spacing:2px; text-align:right;}
+#frame_side #menu ol ul .current{background:url(images/sprite_green.png) -132px -119px;}
+#frame_side #menu ol ul .current a{color:#FFF; font-weight:bold;}
+#frame_side #menu ol ul li a{color:#999; font-size:14px;}
+#frame_side #menu ol ul li a:hover{color:#FFF;}
+#frame_side .left_url{color:#999999;}
+#frame_side .left_url:hover{color:#FFF;}
+
+/* 页眉 */
+.header{background:url(images/sprite_green.png) 0 48px repeat-x #000; height:60px; color:#999; padding:0; margin:0;}
+.header td{vertical-align:top; padding:14px 0 0 0;}
+.header .button{width:90px; padding:0 10px 0 0; height:20px; line-height:20px; overflow:hidden; text-align:center; color:#000; display:block; float:left; margin:auto 2px 12px 2px; background:url(images/sprite_green.png) -391px -96px no-repeat;} /* old -32px -32px */
+.header .button:hover{background-position:-391px -121px; color:#333;}
+.header .right{background:url(images/sprite_green.png) 20px -157px no-repeat; width:500px; padding:15px 20px 0 0;}
+.header .right a{width:12px; height:12px; overflow:hidden; display:block; float:right; margin:15px 5px 0 0; background:url(images/sprite_green.png) no-repeat;}
+.header .right .green_a{background-position:-3px -63px;}
+.header .right .green_b{background-position:-17px -63px;}
+.header .right .red_a{background-position:-3px -107px;}
+.header .right .red_b{background-position:-17px -107px;}
+.header .right .gray_a{background-position:-3px -85px;}
+.header .right .gray_b{background-position:-17px -85px;}
+.header .right .blue_a{background-position:-3px -96px;}
+.header .right .blue_b{background-position:-17px -96px;}
+.header .top_menu{display:none; width:98px; position:absolute; text-align:center; background:#CCC; border:1px #ECECEC solid; left:215px; top:34px; z-index:999; filter:alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity:0.8; opacity:0.8;}
+.header .top_menu{filter:none\8; +filter:alpha(opacity=80);} /* 去掉 ie8 透明效果,针对 ie8 下有透明背景时 a:hover 无效,该行可以删除 */
+.header .options{left:111px;}
+.header .top_menu a{display:block; padding:0 3px; height:25px; line-height:25px; color:#000; border-bottom:1px #ECECEC solid;}
+.header .top_menu a:hover{background:#75B600; color:#FFF;} /* mle */
+
+/* 主体框架顶部图标样式 */
+.icon{margin:0 auto; padding:0; width:98%; border:0;}
+.icon td{padding:10px 0;}
+.icon td a{width:100px; height:100px; overflow:hidden; float:left; color:#000; margin:0 10px 0 0; border:1px #CCC solid; background:#F3F3F3; text-align:center; -moz-border-radius:7px; -webkit-border-radius:7px; border-radius:7px;}
+.icon td a:hover{background:#FFF; color:#333333;}
+.icon td a img{width:48px; height:48px; margin:10px 0;}
+
+/* 按钮(适用于2或4个汉字的按钮)、搜索提交等 a */
+.button_2{color:#303030; display:block; width:45px; height:27px; line-height:27px; text-align:center; background:url(images/sprite_green.png) -448px -32px no-repeat;}
+.button_2:hover{color:#000; text-decoration:none; background-position:-448px -62px;}
+.button_4{color:#303030; display:block; width:70px; height:27px; line-height:27px; text-align:center; background:url(images/sprite_green.png) -371px -32px no-repeat;}
+.button_4:hover{color:#000; text-decoration:none; background-position:-371px -62px;}
+
+/* page 分页样式 */
+.page{margin:5px auto;}
+.page table{margin:0; padding:0; border:0;}
+.page table td{height:22px; line-height:22px;}
+.page .start{width:46px; padding:0 10px 0 0; height:22px; line-height:22px; display:block; text-align:right; background:url(images/page/first.png) no-repeat;}
+.page .start_off{width:46px; padding:0 10px 0 0; text-align:right; background:url(images/page/first_off.png) no-repeat; font-family:Arial,Helvetica,sans-serif;}
+.page .first{width:46px; padding:0 8px 0 0; height:22px; line-height:22px; display:block; text-align:right; background:url(images/page/prev.png) no-repeat;}
+.page .first_off{width:46px; padding:0 8px 0 0; text-align:right; background:url(images/page/prev_off.png) no-repeat; font-family:Arial,Helvetica,sans-serif;}
+.page .fleft{background:url(images/page/left.png); width:5px;}
+.page .fcenter{background:url(images/page/right.png); padding:0 5px;}
+.page .fright{background:url(images/page/right.png) right; width:5px;}
+.page .next{width:46px; padding:0 0 0 8px; height:22px; line-height:22px; display:block; text-align:left; background:url(images/page/next.png) no-repeat;}
+.page .next_off{width:46px; padding:0 0 0 8px; text-align:left; background:url(images/page/next_off.png) no-repeat; font-family:Arial,Helvetica,sans-serif;}
+.page .end{width:46px; padding:0 0 0 8px; height:22px; line-height:22px; display:block; text-align:left; background:url(images/page/last.png) no-repeat;}
+.page .end_off{width:46px; padding:0 0 0 8px; text-align:left; background:url(images/page/last_off.png) no-repeat; font-family:Arial,Helvetica,sans-serif;}
+.page a{color:#000; font-size:12px; font-family:Arial,Helvetica,sans-serif;}
+.page a:hover{color:#F66;}
+.page select{padding:2px; height:22px; border:1px #CCC solid; background:#FFF; -moz-border-radius:5px; -webkit-border-radius:5px; border-radius:5px;}
+
+/* jquery.alerts插件，弹出输入框插件样式 */
+#popup_container{font-size:12px; min-width:300px; max-width:600px; background:#FFF; border:solid 3px #999; color:#000; -moz-border-radius:5px; -webkit-border-radius:5px; border-radius:5px;}
+#popup_title{font-size:12px; text-align:center; line-height:1.75em; color:#666; background:#CCC url(images/alerts/title.gif) top repeat-x; border:solid 1px #FFF; border-bottom:solid 1px #999; cursor:default; padding:0em; margin:0em;}
+#popup_content{background:16px 16px no-repeat url(images/alerts/help.gif); padding:1em 1.75em; margin:0em; line-height:20px;} 
+#popup_content.alert{background-image:url(images/alerts/info.gif);} 
+#popup_content.confirm{background-image:url(images/alerts/important.gif);} 
+#popup_content.prompt{background-image:url(images/alerts/help.gif);} 
+#popup_message{padding:0 20px 0 48px;} 
+#popup_panel{text-align:center; margin:3px 0 0 0;}
+#popup_panel input{cursor:pointer; border:0; color:#333; width:45px; height:27px; background:url(images/sprite_green.png) -448px -32px no-repeat;} /* 确定与取消按钮 */
+#popup_panel #popup_ok{margin:0 20px 0 0;} /* 确定按钮 */
+#popup_prompt,#popup_prompt2{margin:.5em 0em; padding:5px; border:1px #999 solid; background:#FFF; -moz-border-radius:5px; -webkit-border-radius:5px; border-radius:5px;}
+
+/* 页脚 */
+.footer{line-height:20px; padding:0 0 0 10px; color:#666; margin:10px auto; text-align:center;}

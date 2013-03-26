@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+	<!--log4j.xml 配置文件 优先于 log4j.properties 配置文件-->
+	
+	<!-- 输出到控制台  -->
+	<appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="[%d{yyyy-MM-dd HH:mm:ss}] [%c] [%L] %p [%m]%n"/>
+		</layout>
+	</appender>
+    
+    <appender name="logdebug" class="org.apache.log4j.DailyRollingFileAppender">   
+		<param name="Threshold" value="DEBUG" />
+		<param name="encoding" value="UTF-8" />
+		<param name="File" value="../log/debug.log" />   
+		<param name="DatePattern" value="'debug_'yyyy-MM-dd'.log'" />   
+		<layout class="org.apache.log4j.PatternLayout">   
+			<param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss}] [%c] [%L] %p [%m]%n" />   
+		</layout>   
+	</appender>
+	
+	<!-- 输出到日志文件 每天一个日志  -->
+	<appender name="loginfo" class="org.apache.log4j.DailyRollingFileAppender">   
+		<param name="Threshold" value="INFO" />
+		<param name="encoding" value="UTF-8" />
+		<param name="File" value="../log/info.log" />   
+		<param name="DatePattern" value="'info_'yyyy-MM-dd'.log'" />   
+		<layout class="org.apache.log4j.PatternLayout">   
+			<param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss}] [%c] [%L] %p [%m]%n" />   
+		</layout>   
+	</appender>
+	
+	<appender name="logerror" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="Threshold" value="ERROR" />
+		<param name="encoding" value="UTF-8" />
+		<param name="File" value="../log/error.log" />   
+		<param name="DatePattern" value="'error_'yyyy-MM-dd'.log'" />   
+		<layout class="org.apache.log4j.PatternLayout">   
+			<param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss}] [%c] [%L] %p [%m]%n" />   
+		</layout>   
+	</appender>
+
+	<logger name="org.apache">
+		<level value="WARN"/>
+	</logger>
+
+	<!-- 关闭某些包下的日志输出 -->
+	<logger name="org.hibernate">
+		<level value="OFF"/>		
+	</logger>
+ 	<logger name="org.springframework">
+		<level value="ON"/>		
+	</logger>
+   
+   <!-- 日志的总开关设置 包括日志级别和 appender  -->
+	<root>
+		<level value="DEBUG"/>
+		<appender-ref ref="CONSOLE"/>
+		<!-- <appender-ref ref="logdebug"/> -->
+		<appender-ref ref="loginfo"/>
+		<appender-ref ref="logerror"/>
+	</root>
+
+</log4j:configuration>

@@ -10,21 +10,20 @@
 	default-lazy-init="true">
 
 	<tx:annotation-driven />
+	
 	<context:annotation-config />
 	
 	<mvc:annotation-driven />
+	
 	<mvc:default-servlet-handler/>
 	
 	<!-- 拦截器 -->  
    <mvc:interceptors>
-    	<bean class="com.tavenli.interceptors.WebDefaultInterceptor" />
-    	
+    	<bean class="com.tavenli.interceptors.WebDefaultInterceptor" />    	
     	<mvc:interceptor>    
         	<mvc:mapping path="/u/**" /> 
         	<bean class="com.tavenli.interceptors.UAuthorizeInterceptor"></bean>    
-    	</mvc:interceptor>
-
-    	
+    	</mvc:interceptor>    	
 	</mvc:interceptors>
 	
 	<context:component-scan base-package="com.tavenli" use-default-filters="false">
@@ -32,8 +31,7 @@
 	</context:component-scan>
 
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/" p:suffix=".jsp" />
-
-
+	
 	<bean	class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
 		<property name="messageConverters">
 			<list>
@@ -43,8 +41,9 @@
 		</property>
 	</bean>
 
-	<bean id="stringHttpMessageConverter"	class="org.springframework.http.converter.StringHttpMessageConverter" />
+	<bean id="stringHttpMessageConverter" class="org.springframework.http.converter.StringHttpMessageConverter" />
 
-	<bean id="mappingJacksonHttpMessageConverter"	class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" />
+	<bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" />
 
 </beans>
+

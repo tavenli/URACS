@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+    xmlns:beans="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+    <debug />
+
+    <global-method-security pre-post-annotations="enabled" />
+
+	<!-- 不用权限管理的资源路径 -->
+    <http pattern="/css/**" security="none"/>
+    <http pattern="/icon/**" security="none"/>
+    <http pattern="/images/**" security="none"/>
+    <http pattern="/js/**" security="none"/>
+    <http pattern="/index.jsp" security="none"/>
+
+    <!-- <http use-expressions="true"> -->
+    <!-- 或 -->
+    <http use-expressions="true" entry-point-ref="authenticationProcessingFilterEntryPoint" access-denied-page="/accessDenied">
+    
+        <intercept-url pattern="/secure/extreme/**" access="hasRole('supervisor')"/>
+        <intercept-url pattern="/secure/**" access="isAuthenticated()" />
+        
+		<!-- 以上未列出的，也都必须验证才能访问 -->
+        <intercept-url pattern="/**" access="isAuthenticated()" />
+		 
+        <!-- 所有地址全开，无需验证，测试用 -->
+        <!-- <intercept-url pattern="/**" access="permitAll" /> -->
+		
+        
+        <logout logout-success-url="/logout" invalidate-session="true" delete-cookies="JSESSIONID"/>
+        
+        <!-- 实现免登陆验证 -->
+        <remember-me />
+
+        <!-- session超时跳转页面 以及每用户可拥有的session最大个数 -->
+        <session-management invalid-session-url="/timeout.jsp">
+            <concurrency-control max-sessions="1" error-if-maximum-exceeded="true" />
+        </session-management>
+		
+		<!-- 使用验证码过滤器 -->
+		<!-- <form-login /> -->
+		<!-- 或 -->
+		<custom-filter ref="validateCodeAuthenticationFilter" position="FORM_LOGIN_FILTER" />
+		
+		<!-- 使用自定义的过滤器 -->
+		<custom-filter ref="webSecurityFilter" before="FILTER_SECURITY_INTERCEPTOR"/>
+		
+    </http>
+    
+    <!-- 配置登录入口点 -->
+	<beans:bean id="authenticationProcessingFilterEntryPoint"
+		class="org.springframework.security.web.authentication.AuthenticationProcessingFilterEntryPoint">
+		<beans:property name="loginFormUrl" value="/login"/>
+		<!-- 是否强制HTTPS -->
+		<beans:property name="forceHttps" value="false" />
+	</beans:bean>
+	
+	<!-- 配置自定义的支持验证码等多功能过滤器 -->
+	<beans:bean id="validateCodeAuthenticationFilter" class="com.tavenli.security.ValidateCodeUsernamePasswordAuthenticationFilter">
+		<beans:property name="filterProcessesUrl" value="/login"></beans:property>
+		<beans:property name="successUrl" ref="/main"></beans:property>
+		<beans:property name="failureUrl"	ref="/error"></beans:property>
+		<beans:property name="authenticationManager" ref="webAuthenticationManager"></beans:property>
+	</beans:bean>
+
+	<!-- 配置自定义的过滤器 -->
+    <beans:bean id="webSecurityFilter" class="com.tavenli.security.WebSecurityFilter">  
+        <!-- 用户拥有的权限 -->  
+        <beans:property name="authenticationManager" ref="webAuthenticationManager" />  
+        <!-- 用户是否拥有所请求资源的权限 -->  
+        <beans:property name="accessDecisionManager" ref="webAccessDecisionManager" />  
+        <!-- 资源与权限对应关系 -->  
+        <beans:property name="securityMetadataSource" ref="webSecurityMetadataSource" />  
+    </beans:bean>
+    
+    <!-- 实现了 UserDetailsService 接口的类 -->  
+    <authentication-manager alias="webAuthenticationManager">  
+        <authentication-provider user-service-ref="webUserDetailsService">
+	        <!-- 密码的加密解密类 -->
+			<password-encoder ref="pwEncoder"/>
+			<!-- 或 -->
+			<!-- <password-encoder hash="md5"/> -->
+		</authentication-provider>
+    </authentication-manager>
+    
+    <!-- 核心验证类 -->
+    <beans:bean id="webUserDetailsService" class="com.tavenli.security.WebUserDetailsService"/>
+    <beans:bean id="webAccessDecisionManager" class="com.tavenli.security.WebAccessDecisionManager"/>
+    <beans:bean id="webSecurityMetadataSource" class="com.tavenli.security.WebSecurityMetadataSource"/>
+
+	<!-- 密码的加密解密类，可以换成自己的，实现 PasswordEncoder 接口即可 -->
+    <beans:bean id="pwEncoder" class="org.springframework.security.crypto.password.StandardPasswordEncoder"/>
+
+
+</beans:beans>

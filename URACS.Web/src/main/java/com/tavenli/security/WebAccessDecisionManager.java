@@ -12,13 +12,17 @@ import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.stereotype.Service;
 
 /**
  * 访问决策器，决定某个用户具有的角色，是否有足够的权限去访问某个资源
  * 
- * @author Taven
+ * 另外还可以参考一下 AbstractAccessDecisionManager
+ * 
+ * @author Taven.Li
  *
  */
+@Service
 public class WebAccessDecisionManager implements AccessDecisionManager {
 	
 	private static Logger logger = LoggerFactory.getLogger(WebAccessDecisionManager.class);

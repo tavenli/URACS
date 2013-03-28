@@ -16,7 +16,7 @@ import org.springframework.security.core.userdetails.UserDetails;
  * 
  * 如果需要包括用户的其他属性，可以在该类中增加相应属性即可
  * 
- * @author Taven
+ * @author Taven.Li
  *
  */
 public class WebUserDetails implements UserDetails {

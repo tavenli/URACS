@@ -17,5 +17,18 @@ public class IndexController {
 
 	}
 	
+	@RequestMapping("/login")
+	public String login() {
+
+		return "login";
+
+	}
+	
+	@RequestMapping("/help")
+	public String help() {
+
+		return "index";
+
+	}
 	
 }

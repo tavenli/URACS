@@ -17,7 +17,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 /**
  * 实现带验证码的登录验证，在这里还可以实现登录验证的其他参数接收和处理
  * 
- * @author Taven
+ * @author Taven.Li
  *
  */
 public class ValidateCodeUsernamePasswordAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
@@ -28,6 +28,11 @@ public class ValidateCodeUsernamePasswordAuthenticationFilter extends UsernamePa
 	 * 是否只接收POST方式提交的验证数据
 	 */
 	private boolean postOnly = true;
+	
+	/**
+	 * 是否需要验证码
+	 */
+	private boolean checkValidateCode = true;
 	
 	/**
 	 * 验证码对应的表单参数名称
@@ -79,8 +84,10 @@ public class ValidateCodeUsernamePasswordAuthenticationFilter extends UsernamePa
         //取用户名密码前，设置编码格式
         //request.setCharacterEncoding("UTF-8");
         
-        //校验验证码是否输入正确
-        checkValidateCode(request);
+        //是否需要校验验证码
+        if(checkValidateCode){
+        	checkValidateCode(request);
+        }
 
         String username = obtainUsername(request);
         String password = obtainPassword(request);

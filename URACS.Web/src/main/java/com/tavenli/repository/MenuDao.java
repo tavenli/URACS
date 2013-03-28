@@ -5,8 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class ResourceDao extends BaseDao {
+public class MenuDao extends BaseDao {
 
-	private static Logger logger = LoggerFactory.getLogger(ResourceDao.class);
+	private static Logger logger = LoggerFactory.getLogger(MenuDao.class);
 	
 }

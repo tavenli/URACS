@@ -2,7 +2,7 @@ package com.tavenli.security;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,9 +14,10 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
+import com.tavenli.entity.RoleEntity;
 import com.tavenli.entity.UserEntity;
-import com.tavenli.entity.UserRoleEntity;
 import com.tavenli.services.UCenterService;
 
 /**
@@ -24,9 +25,10 @@ import com.tavenli.services.UCenterService;
  * 
  * 这里需要从数据库中读取验证表单提交过来的用户
  * 
- * @author Taven
+ * @author Taven.Li
  *
  */
+@Service
 public class WebUserDetailsService implements UserDetailsService {
 	
 	private static Logger logger = LoggerFactory.getLogger(WebUserDetailsService.class);
@@ -47,16 +49,16 @@ public class WebUserDetailsService implements UserDetailsService {
 							messages.getMessage("User.notFound", new Object[] { username }, "Username {0} not found"));
 		}
 		
-		long userId = userEntity.getId();
+		int userId = userEntity.getId();
 		String password = userEntity.getPassWord();
 		boolean userEnabled = userEntity.getStatus() == 1;
 		
 		//读取当前用户有哪些权限
 		Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-		List<UserRoleEntity> userRoles = uCenterService.getUserRole(userId);
-		for (UserRoleEntity userRole : userRoles) {
-			
-			SimpleGrantedAuthority authority = new SimpleGrantedAuthority(String.valueOf(userRole.getRoleId()));
+		Set<RoleEntity> userRoles = userEntity.getRoles();
+		for (RoleEntity userRole : userRoles) {
+			//这里是否要和 SecurityMetadataSource 中的 SecurityConfig 参数对应？
+			SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_"+userRole.getId());
 
 			authorities.add(authority);
 		}

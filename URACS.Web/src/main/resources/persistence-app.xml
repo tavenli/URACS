@@ -9,6 +9,7 @@
 	
 		<class>com.tavenli.entity.UserEntity</class>
 		<class>com.tavenli.entity.RoleEntity</class>
+		<class>com.tavenli.entity.MenuEntity</class>
 
 	
 		<properties>

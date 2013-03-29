@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <%@ include file="common/include_tag.jsp" %>
 <%@ include file="common/page_var.jsp" %>
-
+ <%@ page isELIgnored="false" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title><%=pageTitle%></title>
+<title>出现了异常</title>
 
 	<link rel="stylesheet" type="text/css" href="<s:url value='/css/common_green.css'/>" />
 
@@ -26,30 +26,22 @@
 
 	<div class="rounded table">
 	
-			<div class="information rounded">
+			<div class="error rounded">
 	       		<ol></ol>
-	            
-	            URACS
+	            非常抱歉，您执行的操作出现了异常，请联系我们。
 	            <br/>
-				统一角色访问控制系统(Unified Role Access Control System)，是基于Spring Security 3实现的权限控制系统
+	            电子邮件：service@pilicat.com
 				<br/>
-				<br/>
-				程序框架版本说明：Spring MVC 3.2.0 + Spring Security 3.1.3 + Hibernate 3.6.10
-				<br/>
-				GitHub开源地址：https://github.com/tavenli/URACS
-				<br/>
-				开发者：李锡远 
-				<br/>
-				博客：http://taven.cnblogs.com             	
-	            <br/><br/>
-
-	            
+				技术支持旺旺：
+				<a target="_blank" href="http://www.taobao.com/webww/ww.php?ver=3&touid=%E8%BF%9C%E5%8F%8B%E7%A7%91%E6%8A%80&siteid=cntaobao&status=1&charset=utf-8">
+				<img border="0" src="http://amos.alicdn.com/realonline.aw?v=2&uid=%E8%BF%9C%E5%8F%8B%E7%A7%91%E6%8A%80&site=cntaobao&s=1&charset=utf-8" alt="点击这里给我发消息" />
+				</a>	                  	
+	                     
 			</div>
-	 
-	
+
 	</div>
 
 	<%@ include file="bottom.jsp" %>
-
+    
 </body>
 </html>

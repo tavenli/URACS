@@ -28,22 +28,8 @@
 	
 			<div class="information rounded">
 	       		<ol></ol>
-	            
-	            URACS
-	            <br/>
-				统一角色访问控制系统(Unified Role Access Control System)，是基于Spring Security 3实现的权限控制系统
-				<br/>
-				<br/>
-				程序框架版本说明：Spring MVC 3.2.0 + Spring Security 3.1.3 + Hibernate 3.6.10
-				<br/>
-				GitHub开源地址：https://github.com/tavenli/URACS
-				<br/>
-				开发者：李锡远 
-				<br/>
-				博客：http://taven.cnblogs.com             	
-	            <br/><br/>
-
-	            
+	                  	系统成功退出！	                  	
+	                     
 			</div>
 	 
 	

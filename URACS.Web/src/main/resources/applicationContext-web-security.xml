@@ -16,7 +16,9 @@
     <http pattern="/images/**" security="none"/>
     <http pattern="/js/**" security="none"/>
     <http pattern="/index.jsp" security="none"/>
-    <http pattern="/login" security="none"/>
+    <http pattern="/login**/**" security="none"/>
+    <http pattern="/getVerifyCode" security="none"/>
+    <http pattern="/help" security="none"/>
 
     <!-- <http use-expressions="true"> -->
     <!-- 或 -->
@@ -38,7 +40,7 @@
         <remember-me />
 
         <!-- session超时跳转页面 以及每用户可拥有的session最大个数 -->
-        <session-management invalid-session-url="/timeout.jsp">
+        <session-management invalid-session-url="/logout.jsp">
             <concurrency-control max-sessions="1" error-if-maximum-exceeded="true" />
         </session-management>
 		
@@ -61,10 +63,12 @@
 	</beans:bean>
 	
 	<!-- 配置自定义的支持验证码等多功能过滤器 -->
-	<beans:bean id="validateCodeAuthenticationFilter" class="com.tavenli.security.ValidateCodeUsernamePasswordAuthenticationFilter">
-		<beans:property name="filterProcessesUrl" value="/login"></beans:property>
-		<beans:property name="successUrl" value="/main"></beans:property>
-		<beans:property name="failureUrl"	value="/error"></beans:property>
+	<beans:bean id="validateCodeAuthenticationFilter" init-method="init" class="com.tavenli.security.ValidateCodeUsernamePasswordAuthenticationFilter">
+		<beans:property name="filterProcessesUrl" value="/doLogin"></beans:property>
+		<beans:property name="userNameParameter" value="userName"></beans:property>
+		<beans:property name="passWordParameter" value="passWord"></beans:property>
+		<beans:property name="successUrl" value="/u/main"></beans:property>
+		<beans:property name="failureUrl"	value="/login"></beans:property>
 		<beans:property name="authenticationManager" ref="webAuthenticationManager"></beans:property>
 	</beans:bean>
 

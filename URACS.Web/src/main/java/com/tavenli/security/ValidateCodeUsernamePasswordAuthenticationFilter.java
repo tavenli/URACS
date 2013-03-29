@@ -24,6 +24,10 @@ public class ValidateCodeUsernamePasswordAuthenticationFilter extends UsernamePa
 
 	private static Logger logger = LoggerFactory.getLogger(ValidateCodeUsernamePasswordAuthenticationFilter.class);
 	
+	private String userNameParameter = "userName";
+	
+	private String passWordParameter = "passWord";
+	
 	/**
 	 * 是否只接收POST方式提交的验证数据
 	 */
@@ -33,32 +37,32 @@ public class ValidateCodeUsernamePasswordAuthenticationFilter extends UsernamePa
 	 * 是否需要验证码
 	 */
 	private boolean checkValidateCode = true;
-	
+		
 	/**
 	 * 验证码对应的表单参数名称
 	 */
-	private String validateCodeParameter = "validateCode";
+	private String validateCodeParameter = "verifyCode";
 	
 	/**
 	 * 验证码保存在session中的名称
 	 */
-	private String validateCodeSessionName = "validateCode";
+	private String validateCodeSessionName = "verifyCode";
 	
 	/**
 	 * 验证成功，跳转的页面
 	 * 注意：地址必须是 / 或 http 开头的URL地址
 	 */
-	private String successUrl = "/";
+	private String successUrl = "/main";
 	/**
 	 * 
 	 */
-	private String failureUrl = "/";
+	private String failureUrl = "/login";
 
-	public ValidateCodeUsernamePasswordAuthenticationFilter(){
+	public void init(){
 		//配置接收参数的表单名称，默认是 j_username 和 j_password
 		//可以在这里手工指定，也可以在Spring配置中注入属性
-		//this.setUsernameParameter("userName");
-		//this.setPasswordParameter("passWord");
+		this.setUsernameParameter(userNameParameter);
+		this.setPasswordParameter(passWordParameter);
 		
 		//验证成功，跳转的页面
 		SavedRequestAwareAuthenticationSuccessHandler successHandler = new SavedRequestAwareAuthenticationSuccessHandler();
@@ -136,6 +140,47 @@ public class ValidateCodeUsernamePasswordAuthenticationFilter extends UsernamePa
 	protected String obtainSessionValidateCode(HttpServletRequest request) {
 		Object sessionCode = request.getSession().getAttribute(validateCodeSessionName);
 		return null == sessionCode ? "" : sessionCode.toString();
+	}
+
+	
+	public String getUserNameParameter() {
+		return userNameParameter;
+	}
+
+	public void setUserNameParameter(String userNameParameter) {
+		this.userNameParameter = userNameParameter;
+	}
+
+	public String getPassWordParameter() {
+		return passWordParameter;
+	}
+
+	public void setPassWordParameter(String passWordParameter) {
+		this.passWordParameter = passWordParameter;
+	}
+
+	public boolean isCheckValidateCode() {
+		return checkValidateCode;
+	}
+
+	public void setCheckValidateCode(boolean checkValidateCode) {
+		this.checkValidateCode = checkValidateCode;
+	}
+
+	public String getValidateCodeParameter() {
+		return validateCodeParameter;
+	}
+
+	public void setValidateCodeParameter(String validateCodeParameter) {
+		this.validateCodeParameter = validateCodeParameter;
+	}
+
+	public String getValidateCodeSessionName() {
+		return validateCodeSessionName;
+	}
+
+	public void setValidateCodeSessionName(String validateCodeSessionName) {
+		this.validateCodeSessionName = validateCodeSessionName;
 	}
 
 	public String getSuccessUrl() {

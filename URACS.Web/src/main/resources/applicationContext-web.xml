@@ -18,4 +18,11 @@
 	<context:component-scan base-package="com.tavenli">
 	</context:component-scan>
 
+	<!-- 使用国际化消息 -->  
+   <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">   
+     <property name="basename" value="messages"/>  
+   </bean>   
+	<!-- 获取本地区的语言消息 -->  
+   <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver"/> 
+   
 </beans>

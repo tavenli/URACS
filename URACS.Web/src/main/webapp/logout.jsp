@@ -28,8 +28,8 @@
 	
 			<div class="information rounded">
 	       		<ol></ol>
-	                  	系统成功退出！	                  	
-	                     
+	            系统成功退出！	                  	
+	            <a href="<s:url value='/login'/>">重新登录</a>
 			</div>
 	 
 	

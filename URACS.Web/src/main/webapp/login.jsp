@@ -56,8 +56,8 @@
 </head>
 <body>
 
-<form id="form1" action="<s:url value='/doLogin'/>" method="post">
-                            <table class="table table-bordered table-striped">
+						<form id="form1" action="<s:url value='/doLogin'/>" method="post">
+                            <table class="table table-bordered table-striped" align="center">
                                     
                                     <tr>
                                         <td width="100">
@@ -93,7 +93,7 @@
                                     </tr>
                                     <tr>
                                         <td colspan="2" >
-                                        	<button data-icon="l" class="btn btn-primary icon" type="submit" onclick="return checkForm();">登录</button>
+                                        	<button class="btn btn-primary icon" type="submit" onclick="return checkForm();">登录</button>
                                         </td>
                                     </tr>
 

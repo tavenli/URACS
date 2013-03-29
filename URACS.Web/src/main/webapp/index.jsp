@@ -42,7 +42,8 @@
 				<br/>
 				博客：http://taven.cnblogs.com             	
 	            <br/><br/>
-
+	            
+				<a href="<s:url value='/login'/>">立即登录</a>
 	            
 			</div>
 	 

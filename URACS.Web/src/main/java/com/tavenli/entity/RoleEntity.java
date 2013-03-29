@@ -38,7 +38,7 @@ public class RoleEntity {
 	/**
 	 * 角色和菜单资源的多对多关系映射
 	 */	
-	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinTable(name = "t_app_role_menu", joinColumns = { @JoinColumn(name = "roleId") }, inverseJoinColumns = { @JoinColumn(name = "menuId") })
 	private Set<MenuEntity> menus;
 	

@@ -23,15 +23,17 @@ create table t_app_menu
 (
    id                   int not null auto_increment,
    menuName             varchar(32) not null comment '²Ëµ¥Ãû³Æ',
-   menuCode             varchar(32) comment '¸¸²Ëµ¥±àºÅ',
+   parentId             int not null default 0 comment '¸¸²Ëµ¥ID',
+   menuCode             varchar(32) comment '±àºÅ',
    menuUrl              varchar(256) comment '²Ëµ¥URL',
    urlTarget            varchar(32) comment 'Ò³Ãæ´ò¿ªÎ»ÖÃ',
-   sort                 int comment 'ÅÅÐò',
+   sort                 int not null default 0 comment 'ÅÅÐò',
    remark               varchar(64) comment '±¸×¢',
    createTime           datetime not null,
    lastUpdate           datetime not null,
    primary key (id)
 );
+
 
 /*==============================================================*/
 /* Table: t_app_role                                            */

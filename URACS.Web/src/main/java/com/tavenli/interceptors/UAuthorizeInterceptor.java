@@ -21,6 +21,8 @@ public class UAuthorizeInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		
+		//你可以在这里做一些拦截处理，当然你也可以什么都不做，如果您只关注 Spring Security，可以不关注 HandlerInterceptor 接口
+		
 		//String path = request.getContextPath();
 		//response.sendRedirect(path + "/index");
 				

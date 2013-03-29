@@ -10,8 +10,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -27,6 +25,8 @@ public class MenuEntity {
 	private String menuName;
 	@Column(name = "menuCode")
 	private String menuCode;
+	@Column(name = "parentId")
+	private int parentId;
 	@Column(name = "menuUrl")
 	private String menuUrl;
 	@Column(name = "urlTarget")
@@ -59,6 +59,12 @@ public class MenuEntity {
 	}
 	public void setMenuCode(String menuCode) {
 		this.menuCode = menuCode;
+	}	
+	public int getParentId() {
+		return parentId;
+	}
+	public void setParentId(int parentId) {
+		this.parentId = parentId;
 	}
 	public String getMenuUrl() {
 		return menuUrl;

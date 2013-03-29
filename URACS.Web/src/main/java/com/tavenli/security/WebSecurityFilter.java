@@ -29,6 +29,9 @@ import org.springframework.stereotype.Service;
  * MethodSecurityInterceptor，负责处理MethodInvocation，实现对方法调用的拦截。
  * AspectJSecurityInterceptor，负责处理JoinPoint，主要是用于对切面方法(AOP)调用的拦截。
  * 
+ * 还可以直接使用注解对Action方法进行拦截，例如在方法上加：
+ * @PreAuthorize("hasRole('ROLE_SUPER')")
+ * 
  * @author Taven.Li
  *
  */

@@ -6,8 +6,16 @@
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
                         http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
+	<!-- 开发环境可以放置 <debug /> 配置，会输出详细Security处理日志，正式环境建议屏蔽 <debug /> 配置 -->
     <debug />
 
+	<!--
+	开启支持方法注解的权限控制：
+	@PreAuthorize：该注解用来确定一个方法是否应该被执行。该注解后面跟着的是一个表达式，如果表达式的值为真，则该方法会被执行。如 @PreAuthorize("hasRole('ROLE_USER')")就说明只有当前用户具有角色 ROLE_USER的时候才会执行。
+	@PostAuthorize：该注解用来在方法执行完之后进行访问控制检查。
+	@PostFilter：该注解用来对方法的返回结果进行过滤。从返回的集合中过滤掉表达式值为假的元素。如@PostFilter("hasPermission(filterObject, 'read')")说明返回的结果中只保留当前用户有读权限的元素。
+	@PreFilter：该注解用来对方法调用时的参数进行过滤。	
+	-->
     <global-method-security pre-post-annotations="enabled" />
 
 	<!-- 不用权限管理的资源路径 -->
@@ -19,13 +27,14 @@
     <http pattern="/login**/**" security="none"/>
     <http pattern="/getVerifyCode" security="none"/>
     <http pattern="/help" security="none"/>
+    <http pattern="/accessDenied" security="none"/>
 
     <!-- <http use-expressions="true"> -->
     <!-- 或 -->
-    <http use-expressions="true" entry-point-ref="authenticationProcessingFilterEntryPoint" access-denied-page="/accessDenied">
-    
-        <intercept-url pattern="/secure/extreme/**" access="hasRole('supervisor')"/>
-        <intercept-url pattern="/secure/**" access="isAuthenticated()" />
+    <http use-expressions="true" entry-point-ref="authenticationProcessingFilterEntryPoint" access-denied-page="/u/accessDenied">
+    	
+    	<!-- 指定某角色能访问的资源 -->
+        <intercept-url pattern="/u/super/**" access="hasRole('ROLE_SUPER')"/>
         
 		<!-- 以上未列出的，也都必须验证才能访问 -->
         <intercept-url pattern="/**" access="isAuthenticated()" />
@@ -33,15 +42,22 @@
         <!-- 所有地址全开，无需验证，测试用 -->
         <!-- <intercept-url pattern="/**" access="permitAll" /> -->
 		
-        
-        <logout logout-success-url="/logout" invalidate-session="true" delete-cookies="JSESSIONID"/>
+        <!-- 
+        logout-url 属性:这个指定的URL会触发注销操作，默认是 /j_spring_security_logout
+        invalidate-session 属性：如果为true，在注销的时候会销毁会话
+        delete-cookies 属性：以逗号分隔的cookies名称，在用户注销时删除指定的cookies
+        -->
+        <logout logout-success-url="/logout.jsp" invalidate-session="true" delete-cookies="JSESSIONID"/>
         
         <!-- 实现免登陆验证 -->
         <remember-me />
 
-        <!-- session超时跳转页面 以及每用户可拥有的session最大个数 -->
-        <session-management invalid-session-url="/logout.jsp">
-            <concurrency-control max-sessions="1" error-if-maximum-exceeded="true" />
+        <!--
+        session超时跳转页面 以及每用户可拥有的session最大个数 
+        如果每次退出后，必须要求用户必须重开浏览器才能登录，可以将 invalid-session-url="/logout.jsp"，防止有些 Web 应用把用户的会话标识符直接通过 URL 的参数来传递        
+        -->
+        <session-management invalid-session-url="/u/main">
+            <concurrency-control max-sessions="1" error-if-maximum-exceeded="true" expired-url="/login" />
         </session-management>
 		
 		<!-- 使用验证码过滤器 -->

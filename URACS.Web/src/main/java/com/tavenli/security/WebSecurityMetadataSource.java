@@ -23,6 +23,7 @@ import org.springframework.security.web.access.intercept.FilterInvocationSecurit
 import org.springframework.security.web.util.AntPathRequestMatcher;
 import org.springframework.security.web.util.RequestMatcher;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.tavenli.entity.MenuEntity;
 import com.tavenli.entity.RoleEntity;
@@ -67,31 +68,71 @@ public class WebSecurityMetadataSource implements FilterInvocationSecurityMetada
 		//取得当前系统所有可用角色
 		List<RoleEntity> roles = this.uCenterService.getAvailableRoles();
 		for (RoleEntity role : roles) {
-			//这里是否要和 UserDetailsService 中的 SimpleGrantedAuthority 参数对应？
+			//这里的 role 参数为自己定义的，要和 UserDetailsService 中的 SimpleGrantedAuthority 参数对应
+			//role 参数也可以直接使用角色名
 			ConfigAttribute ca = new SecurityConfig("ROLE_"+role.getId());
 			//取角色有哪些资源的权限
 			Set<MenuEntity> menus = role.getMenus();
 			for (MenuEntity menu : menus) {
 				String menuUrl = menu.getMenuUrl();
-				if(StringUtils.isNotBlank(menuUrl)){
-					//如果是URL资源，则建立角色与资源关系
-					if(resourceMap.containsKey(menuUrl)) {
-						
-        				resourceMap.get(menuUrl).add(ca);
-        				
-        			} else {
-        				
-        	        	Collection<ConfigAttribute> atts = new ArrayList<ConfigAttribute>();
-        	        	atts.add(ca);
-        				resourceMap.put(menuUrl, atts);
-        				
-        			}
-					
+				if(StringUtils.isBlank(menuUrl)){
+					//不是菜单地址，跳过
+					continue;
 				}
+				
+				//如果是URL资源，则建立角色与资源关系
+				if(resourceMap.containsKey(menuUrl)) {
+					
+    				resourceMap.get(menuUrl).add(ca);
+    				
+    			} else {
+    				
+    	        	Collection<ConfigAttribute> atts = new ArrayList<ConfigAttribute>();
+    	        	atts.add(ca);
+    				resourceMap.put(menuUrl, atts);
+    				
+    			}
+					
+				
 			}
 			
 		}
 		
+		
+		//为超级管理员添加所有资源权限
+		this.initSuperUserResource();
+		
+		
+	}
+	
+	private void initSuperUserResource() {
+
+		// 添加超级管理员角色
+		//ROLE_SUPER 这个权限名字也是自己定义的
+		ConfigAttribute superCA = new SecurityConfig("ROLE_SUPER");
+		// 超级管理员有所有菜单权限
+		List<MenuEntity> menus = this.uCenterService.getAllMenus();
+		for (MenuEntity menu : menus) {
+			String menuUrl = menu.getMenuUrl();
+			if (StringUtils.isBlank(menuUrl)) {
+				// 不是菜单地址，跳过
+				continue;
+			}
+
+			if (resourceMap.containsKey(menuUrl)) {
+
+				resourceMap.get(menuUrl).add(superCA);
+
+			} else {
+
+				Collection<ConfigAttribute> atts = new ArrayList<ConfigAttribute>();
+				atts.add(superCA);
+				resourceMap.put(menuUrl, atts);
+
+			}
+
+		}
+
 	}
 	
 	@Override

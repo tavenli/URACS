@@ -33,6 +33,13 @@ public class LoginController {
 		return "login";
 
 	}
+	
+	@RequestMapping(value = { "/authorizeFailed" })
+	public String accessDenied() {
+
+		return "authorize_failed";
+
+	}
 
 	@RequestMapping("/getVerifyCode")
 	public void getVerifyMCode(Model model,HttpServletRequest request,HttpServletResponse response) {

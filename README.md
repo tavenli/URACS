@@ -14,16 +14,16 @@ URACS
 <br/>
 
 <br/>
-![Page01](/tavenli/URACS/blob/master/Screenshots/Page01.png)
+![Page01](/tavenli/URACS/blob/master/Screenshots/Page01.png?raw=true)
 
 <br/>
-![Page02](/tavenli/URACS/blob/master/Screenshots/Page02.png)
+![Page02](/tavenli/URACS/blob/master/Screenshots/Page02.png?raw=true)
 
 <br/>
-![Page03](/tavenli/URACS/blob/master/Screenshots/Page03.png)
+![Page03](/tavenli/URACS/blob/master/Screenshots/Page03.png?raw=true)
 
 <br/>
-![Page04](/tavenli/URACS/blob/master/Screenshots/Page04.png)
+![Page04](/tavenli/URACS/blob/master/Screenshots/Page04.png?raw=true)
 
 <br/>
 

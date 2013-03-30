@@ -34,7 +34,10 @@ public class WebUserDetails implements UserDetails {
 	private boolean accountNonLocked;
 	private boolean credentialsNonExpired;
 	
-	public WebUserDetails(String username, String password, boolean userEnabled, Collection<GrantedAuthority> authorities) {
+	//额外增加的属性
+	private int userId;
+	
+	public WebUserDetails(int userId,String username, String password, boolean userEnabled, Collection<GrantedAuthority> authorities) {
 		this.username = username;
 		this.password = password;
 		this.userEnabled = userEnabled;		
@@ -44,6 +47,9 @@ public class WebUserDetails implements UserDetails {
 		this.accountNonExpired = true;
 		this.accountNonLocked = true;
 		this.credentialsNonExpired = true;
+		
+		//
+		this.userId = userId;
 		
 	}
 
@@ -82,4 +88,10 @@ public class WebUserDetails implements UserDetails {
 		return this.userEnabled;
 	}
 
+	public int getUserId() {
+		return userId;
+	}
+
+	
+	
 }

@@ -68,9 +68,7 @@
 					<table cellpadding="0" cellspacing="5" border="0">
 						<tbody>
 						<tr>							
-							<td>
-							<!-- 搜索条件 搜索按钮 -->
-							</td>
+							<td><a class="button_4" href="javascript:;" onclick="add();">添加新菜单</a></td>
 						</tr>
 					</tbody></table>			
 					</form>

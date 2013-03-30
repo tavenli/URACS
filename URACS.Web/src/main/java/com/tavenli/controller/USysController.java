@@ -31,7 +31,6 @@ public class USysController extends UBaseController {
 		page = page== null ? 1 : page<1 ? 1 : page;
 		
 		int pageSize = 10;
-		WebUserDetails userInfo = this.getUserInfo();
 		
 		PageData<UserEntity> pageData = this.uCenterService.getUsers(page, pageSize, userName);
 		
@@ -42,6 +41,31 @@ public class USysController extends UBaseController {
 		model.addAttribute("pageNav", PageNavUtil.getPageNavHtml(page.intValue(), pageSize, pageData.getTotalCount(), 15));
 		
 		return "ucenter/sys/userList";
+	}
+	
+	@RequestMapping("/userAdd")
+	public String userAdd(Model model,UserEntity userEntity) {
+		userEntity.setStatus(1);
+		model.addAttribute("userEntity", userEntity);
+		return "ucenter/sys/userEdit";
+	}
+	
+	@RequestMapping("/userEdit")
+	public String userEdit(Model model,int id) {
+		
+		UserEntity userEntity = this.uCenterService.getUser(id);
+		model.addAttribute("userEntity", userEntity);
+		return "ucenter/sys/userEdit";
+	}
+	
+	@RequestMapping("/changePwd")
+	public String changePwd(Model model) {
+		WebUserDetails userInfo = this.getUserInfo();
+		int userId = userInfo.getUserId();
+		
+		UserEntity userEntity = this.uCenterService.getUser(userId);
+		model.addAttribute("userEntity", userEntity);
+		return "ucenter/sys/userEdit";
 	}
 	
 	@RequestMapping("/roles")
@@ -60,6 +84,21 @@ public class USysController extends UBaseController {
 		return "ucenter/sys/roleList";
 	}
 	
+	@RequestMapping("/roleAdd")
+	public String roleAdd(Model model,RoleEntity roleEntity) {
+		roleEntity.setStatus(1);
+		model.addAttribute("roleEntity", roleEntity);
+		return "ucenter/sys/roleEdit";
+	}
+	
+	@RequestMapping("/roleEdit")
+	public String roleEdit(Model model,int id) {
+		
+		RoleEntity roleEntity = this.uCenterService.getRole(id);
+		model.addAttribute("roleEntity", roleEntity);
+		return "ucenter/sys/roleEdit";
+	}
+	
 	@RequestMapping("/menus")
 	public String menuList(Model model, Integer page,String menuName) {
 		
@@ -76,5 +115,19 @@ public class USysController extends UBaseController {
 		return "ucenter/sys/menuList";
 	}
 	
+	@RequestMapping("/menuAdd")
+	public String menuAdd(Model model,MenuEntity menuEntity) {
+
+		model.addAttribute("menuEntity", menuEntity);
+		return "ucenter/sys/menuEdit";
+	}
+	
+	@RequestMapping("/menuEdit")
+	public String menuEdit(Model model,int id) {
+		
+		MenuEntity menuEntity = this.uCenterService.getMenu(id);
+		model.addAttribute("menuEntity", menuEntity);
+		return "ucenter/sys/menuEdit";
+	}
 	
 }

@@ -68,9 +68,7 @@
 					<table cellpadding="0" cellspacing="5" border="0">
 						<tbody>
 						<tr>							
-							<td>
-							<!-- 搜索条件 搜索按钮 -->
-							</td>
+							<td><a class="button_4" href="javascript:;" onclick="add();">添加新角色</a></td>
 						</tr>
 					</tbody></table>			
 					</form>
@@ -151,6 +149,24 @@
 							<a href="javascript:;" onclick="edit(${dataItem.id});">
 							 	<img src="<s:url value='/css/images/operation/pencil.png'/>" title="修改角色信息"/>
 							 </a>
+							 
+							 <c:choose>
+								<c:when test="${dataItem.status==0}">
+									 <a href="javascript:;" onclick="changeRoleStatus(${dataItem.id},1);">
+		                            	<img src="<s:url value='/css/images/operation/lock_unlock.png'/>" title="启用角色"/>
+		                            </a>
+								</c:when>					
+								<c:otherwise>
+		                            <a href="javascript:;" onclick="changeRoleStatus(${dataItem.id},0);">
+		                            	<img src="<s:url value='/css/images/operation/lock.png'/>" title="禁用角色"/>
+		                            </a>
+								</c:otherwise>
+							</c:choose>
+							           
+							 <a href="javascript:;" onclick="permission(${dataItem.id});">
+							 	<img src="<s:url value='/css/images/operation/folder.png'/>" title="角色权限"/>
+							 </a>
+							 
 						</td>
 						
 					</tr>

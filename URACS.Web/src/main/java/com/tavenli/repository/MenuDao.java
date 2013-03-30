@@ -12,13 +12,21 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.tavenli.entity.MenuEntity;
-import com.tavenli.entity.RoleEntity;
 
 @Repository
 public class MenuDao extends BaseDao {
 
 	private static Logger logger = LoggerFactory.getLogger(MenuDao.class);
 	
+	
+	public MenuEntity getMenuById(int id){
+		try {
+			return this.getById(MenuEntity.class, id);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			return null;
+		}
+	}
 	
 	public List<MenuEntity> getMenus() {
 		List<MenuEntity> list = new ArrayList<MenuEntity>();

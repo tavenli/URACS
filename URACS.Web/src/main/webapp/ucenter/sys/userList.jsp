@@ -31,6 +31,27 @@
     	});
     }
     
+    function changeUserStatus(id,status){
+
+    	$.jBox.confirm("确定 "+(status==0?"禁用":"启用")+" 用户吗？", "确认操作", function (v, h, f) {
+    	    if (v == 'ok'){
+    	    	
+    	    	$.post("<s:url value='/u/changeUserStatus'/>",{id:id,status:status},function(responseText){
+    	    		if(responseText==true){
+    	    			$.jBox.info("操作成功", "成功信息",{top: '20%'});
+    	    			//window.location.reload();
+    	    		}else{
+    	    			$.jBox.error("操作失败", "失败信息");
+    	    		}
+    	    	});
+
+    	    	
+    		}
+    	    return true; 
+    	},{top: '40%'});
+    	
+    }
+    
     $().ready(function(){
     	pilicat.alternately('list');
 
@@ -68,9 +89,7 @@
 					<table cellpadding="0" cellspacing="5" border="0">
 						<tbody>
 						<tr>							
-							<td>
-							<!-- 搜索条件 搜索按钮 -->
-							</td>
+							<td><a class="button_4" href="javascript:;" onclick="add();">添加新用户</a></td>
 						</tr>
 					</tbody></table>			
 					</form>
@@ -149,6 +168,24 @@
 							<a href="javascript:;" onclick="edit(${dataItem.id});">
 							 	<img src="<s:url value='/css/images/operation/pencil.png'/>" title="修改用户信息"/>
 							 </a>
+							 
+							 <c:choose>
+								<c:when test="${dataItem.status==0}">
+									 <a href="javascript:;" onclick="changeUserStatus(${dataItem.id},1);">
+		                            	<img src="<s:url value='/css/images/operation/lock_unlock.png'/>" title="启用用户"/>
+		                            </a>
+								</c:when>					
+								<c:otherwise>
+		                            <a href="javascript:;" onclick="changeUserStatus(${dataItem.id},0);">
+		                            	<img src="<s:url value='/css/images/operation/lock.png'/>" title="禁用用户"/>
+		                            </a>
+								</c:otherwise>
+							</c:choose>
+							           
+							 <a href="javascript:;" onclick="permission(${dataItem.id});">
+							 	<img src="<s:url value='/css/images/operation/member.png'/>" title="用户权限"/>
+							 </a>
+							                 
 						</td>
 						
 					</tr>

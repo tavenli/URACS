@@ -39,6 +39,18 @@ public class UCenterService {
 		return null;
 		
 	}
+	
+	public UserEntity getUser(int id){
+		return this.userDao.getUserById(id);
+	}
+	
+	public RoleEntity getRole(int id){
+		return this.roleDao.getRoleById(id);
+	}
+	
+	public MenuEntity getMenu(int id){
+		return this.menuDao.getMenuById(id);
+	}
 
 	public List<RoleEntity> getAvailableRoles(){
 		return this.roleDao.getRoles(1);

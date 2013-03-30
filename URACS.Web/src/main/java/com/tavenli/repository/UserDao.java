@@ -17,6 +17,15 @@ public class UserDao extends BaseDao {
 
 	private static Logger logger = LoggerFactory.getLogger(UserDao.class);
 	
+	public UserEntity getUserById(int id){
+		try {
+			return this.getById(UserEntity.class, id);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			return null;
+		}
+	}
+	
 	public UserEntity getSingleUser(String userName) throws Exception{
 		String hql = "from UserEntity where userName=?";
 		TypedQuery<UserEntity> query = this.getEntityManager().createQuery(hql, UserEntity.class);

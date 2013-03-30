@@ -73,7 +73,7 @@ public class WebUserDetailsService implements UserDetailsService {
 		}
 		
 		//创建 UserDetails 对象
-		WebUserDetails webUserDetails = new WebUserDetails(username, password, userEnabled, authorities);
+		WebUserDetails webUserDetails = new WebUserDetails(userId,username, password, userEnabled, authorities);
 		
 		return webUserDetails;
 		

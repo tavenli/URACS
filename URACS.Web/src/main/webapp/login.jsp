@@ -8,6 +8,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title><%=pageTitle%>-用户登录</title>
 
+	<link rel="stylesheet" type="text/css" href="<s:url value='/css/common_green.css'/>" />
+	
     <script type="text/javascript" src="<s:url value='/js/jquery.min.js'/>"></script>
     <script type="text/javascript" src="<s:url value='/js/common.js'/>"></script>
     
@@ -56,8 +58,12 @@
 </head>
 <body>
 
+	<div class="rounded table">
+	
+			<div class="attention rounded">
+	       		
 						<form id="form1" action="<s:url value='/doLogin'/>" method="post">
-                            <table class="table table-bordered table-striped" align="center">
+                            <table class="table table-bordered table-striped" align="center"  style="width: 310px;">
                                     
                                     <tr>
                                         <td width="100">
@@ -93,13 +99,39 @@
                                     </tr>
                                     <tr>
                                         <td colspan="2" >
-                                        	<button class="btn btn-primary icon" type="submit" onclick="return checkForm();">登录</button>
+                                        	<button class="btn btn-primary" type="submit" onclick="return checkForm();">登录</button>
                                         </td>
                                     </tr>
-
+                                    <tr>
+                                        <td colspan="2" >
+                                        	<c:if test="${not empty sessionScope.SPRING_SECURITY_LAST_EXCEPTION.message}">
+                                        	<span style="color:red;">
+                                        	登录失败：
+											${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
+											</span>
+											</c:if>
+											<!-- 
+											用户名不存在:UsernameNotFoundException; 
+											密码错误:BadCredentialException; 
+											帐户被锁:LockedException; 
+											帐户未启动:DisabledException; 
+											密码过期:CredentialExpiredException;等等!
+											
+											注：
+											当用户不存在时，也是提示 Bad credentials (密码错误)，这是为了安全性的默认设置，防止暴力猜测用户名
+											 -->
+                                        </td>
+                                    </tr>
+				
                             </table>
                             </form>
 
+			</div>
+	 
+	
+	</div>
 
+	<%@ include file="bottom.jsp" %>
+	
 </body>
 </html>

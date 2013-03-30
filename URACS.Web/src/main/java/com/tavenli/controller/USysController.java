@@ -2,6 +2,7 @@ package com.tavenli.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +12,7 @@ import com.tavenli.entity.RoleEntity;
 import com.tavenli.entity.UserEntity;
 import com.tavenli.model.PageData;
 import com.tavenli.security.WebUserDetails;
+import com.tavenli.services.UCenterService;
 import com.tavenli.utils.PageNavUtil;
 
 
@@ -20,30 +22,34 @@ public class USysController extends UBaseController {
 
 	private static Logger logger = LoggerFactory.getLogger(USysController.class);
 	
-	@RequestMapping("users")
-	public String userList(Model model,Integer page) {
+	@Autowired
+	private UCenterService uCenterService;
+	
+	@RequestMapping("/users")
+	public String userList(Model model,Integer page,String userName) {
 		
 		page = page== null ? 1 : page<1 ? 1 : page;
 		
+		int pageSize = 10;
 		WebUserDetails userInfo = this.getUserInfo();
 		
-		PageData<UserEntity> pageData = new PageData<UserEntity>(page, 10);
+		PageData<UserEntity> pageData = this.uCenterService.getUsers(page, pageSize, userName);
 		
 		model.addAttribute("dataList", pageData.getPageData());
 		model.addAttribute("totalCount", pageData.getTotalCount());
 		model.addAttribute("totalPage", pageData.getTotalPage());
 		model.addAttribute("currentPage", page);
-		model.addAttribute("pageNav", PageNavUtil.getPageNavHtml(page.intValue(), 10, pageData.getTotalCount(), 15));
+		model.addAttribute("pageNav", PageNavUtil.getPageNavHtml(page.intValue(), pageSize, pageData.getTotalCount(), 15));
 		
 		return "ucenter/sys/userList";
 	}
 	
-	@RequestMapping("roles")
-	public String roleList(Model model, Integer page) {
+	@RequestMapping("/roles")
+	public String roleList(Model model, Integer page,String roleName) {
 		
 		page = page== null ? 1 : page<1 ? 1 : page;
-		
-		PageData<RoleEntity> pageData = new PageData<RoleEntity>(page, 10);
+		int pageSize = 10;
+		PageData<RoleEntity> pageData = this.uCenterService.getRoles(page, pageSize, roleName);
 		
 		model.addAttribute("dataList", pageData.getPageData());
 		model.addAttribute("totalCount", pageData.getTotalCount());
@@ -54,12 +60,12 @@ public class USysController extends UBaseController {
 		return "ucenter/sys/roleList";
 	}
 	
-	@RequestMapping("menus")
-	public String menuList(Model model, Integer page) {
+	@RequestMapping("/menus")
+	public String menuList(Model model, Integer page,String menuName) {
 		
 		page = page== null ? 1 : page<1 ? 1 : page;
-		
-		PageData<MenuEntity> pageData = new PageData<MenuEntity>(page, 10);
+		int pageSize = 10;
+		PageData<MenuEntity> pageData = this.uCenterService.getMenus(page, pageSize, menuName);
 		
 		model.addAttribute("dataList", pageData.getPageData());
 		model.addAttribute("totalCount", pageData.getTotalCount());

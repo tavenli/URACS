@@ -6,16 +6,35 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title><%=pageTitle%> - 用户操作日志</title>
+    <title><%=pageTitle%> - 菜单管理</title>
 
     <%@ include file="../../common/page_head.jsp" %>
 
     <script type="text/javascript">
         
-        $().ready(function(){
-        	pilicat.alternately('list');
+    function add(){
+    	$.jBox("iframe:<s:url value='/u/menuAdd'/>", {
+    	    title: "添加菜单",
+    	    width: 700,
+    	    height: 320,
+    	    buttons: {}
+    	});
+    }
 
-        });
+
+    function edit(id){
+    	$.jBox("iframe:<s:url value='/u/menuEdit'/>?id="+id, {
+    	    title: "修改菜单",
+    	    width: 700,
+    	    height: 320,
+    	    buttons: {}
+    	});
+    }
+    
+    $().ready(function(){
+    	pilicat.alternately('list');
+
+    });
 
     </script>
 </head>
@@ -64,26 +83,31 @@
             <form action="" method="get" name="search_form" id="search_form">
                 <table width="100%" cellpadding="0" cellspacing="0" border="0" class="box_top">
                     <tr>
-                        <td class="title">用户日志列表</td>
+                        <td class="title">角色列表</td>
                         <td>                            
                         </td>
                     </tr>
                 </table>
             </form>
 
+				<form action="" method="post" name="manage" id="manage">
                 <table class="list td_align" cellpadding="0" cellspacing="1" border="0">
                     <tr>
-                        <td class="field_head">用户昵称</td>
-                        <td class="field_head">日志类型</td>
-                        <td class="field_head">用户IP</td>
-                        <td class="field_head">日志内容</td>
-                        <td class="field_head">记录时间</td>
+                        <td class="field_head" width="30">选择</td>
+                        <td class="field_head">菜单ID</td>
+                        <td class="field_head">菜单名称</td>
+                        <td class="field_head">菜单Code</td>
+                        <td class="field_head">菜单Url</td>
+                        <td class="field_head">urlTarget</td>
+                        <td class="field_head">创建时间</td>
+                        <td class="field_head">最后更新时间</td>
+                        <td class="field_head">操作</td>
                         
                     </tr>
                     
                     <c:if test="${totalCount==0}">
                     <tr>
-                        <td colspan="5" class="field_head">没有相关数据</td>
+                        <td colspan="7" class="field_head">没有相关数据</td>
                     </tr>
                     </c:if>
                     
@@ -97,41 +121,33 @@
 							<tr class="even">
 						</c:otherwise>
 					</c:choose>
-
-						<td>${dataItem.userNick}</td>
-						<td>
 						
-						<c:choose>
-							<c:when test="${dataItem.logType==0}">
-								<font color='blue'>系统日志</font>
-							</c:when>
-							<c:when test="${dataItem.logType==1}">
-								<font color='green'>登录日志</font>
-							</c:when>
-							<c:when test="${dataItem.logType==2}">
-								<font color='orange'>操作日志</font>
-							</c:when>
-							<c:when test="${dataItem.logType==3}">
-								<font color='red'>中差评告警</font>
-							</c:when>	
-							<c:otherwise>
-								<font color='red'>未知:${dataItem.logType}</font>
-							</c:otherwise>
-						</c:choose>
-					
-						</td>
 						<td>
-							${dataItem.userIp}
-							
+						<input type="checkbox" name="cbitem" value="${dataItem.id }"/>
 						</td>
-						<td style="text-align:left;word-wrap:break-word;word-break:break-all;">	
-                           ${dataItem.logDesc}    
+						<td>${dataItem.id}</td>
+						<td>${dataItem.menuName}</td>
+						<td>
+						${dataItem.menuCode}
+						</td>
+						<td style="text-align:left;word-wrap:break-word;word-break:break-all;">
+						${dataItem.menuUrl}
+						</td>
+						<td>	
+						${dataItem.urlTarget}												
+						</td>
+						<td>	
+                           <fmt:formatDate value="${dataItem.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
 						
 						</td>
 						<td>
-							<fmt:formatDate value="${dataItem.logTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+							<fmt:formatDate value="${dataItem.lastUpdate}" pattern="yyyy-MM-dd HH:mm:ss"/>
 						</td>
-						
+						<td class="operation">
+							<a href="javascript:;" onclick="edit(${dataItem.id});">
+							 	<img src="<s:url value='/css/images/operation/pencil.png'/>" title="修改菜单信息"/>
+							 </a>
+						</td>
 						
 					</tr>
 					</c:forEach>
@@ -140,10 +156,22 @@
                 <table class="table top_line">
                     <tr>
                         <td>
-                            
+                            <table cellpadding="0" cellspacing="0" border="0">
+                                <tr>
+                                    <td class="all_action">
+                                        <input name="allChkbox" id="allChkbox" type="checkbox" onclick="pilicat.select_all(this.form);" />
+                                    </td>
+                                    <td>&nbsp;全选/取消 &nbsp;</td>
+                                    <td class="operation">
+                                        
+                                    </td>
+                                    
+                                </tr>
+                            </table>
                         </td>
                     </tr>
                 </table>
+            </form>
             
             <table class="page" cellpadding="0" cellspacing="5">
                 <tr>                    

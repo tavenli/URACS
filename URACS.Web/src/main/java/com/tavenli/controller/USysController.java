@@ -133,4 +133,16 @@ public class USysController extends UBaseController {
 		return "ucenter/sys/menuEdit";
 	}
 	
+	@RequestMapping("/userRoleSet")
+	public String userRoleSet(Model model) {
+		
+		return "ucenter/sys/userRoleSet";
+	}
+	
+	@RequestMapping("/roleResourceSet")
+	public String roleResourceSet(Model model) {
+		
+		return "ucenter/sys/roleResourceSet";
+	}
+	
 }

@@ -13,6 +13,7 @@ import com.tavenli.entity.UserEntity;
 import com.tavenli.model.PageData;
 import com.tavenli.security.WebUserDetails;
 import com.tavenli.services.UCenterService;
+import com.tavenli.services.UResourceService;
 import com.tavenli.utils.PageNavUtil;
 
 
@@ -23,7 +24,9 @@ public class USysController extends UBaseController {
 	private static Logger logger = LoggerFactory.getLogger(USysController.class);
 	
 	@Autowired
-	private UCenterService uCenterService;
+	private UCenterService uCenterService;	
+	@Autowired
+	private UResourceService uResourceService;
 	
 	@RequestMapping("/users")
 	public String userList(Model model,Integer page,String userName) {

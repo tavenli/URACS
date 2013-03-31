@@ -10,8 +10,11 @@ String current = request.getParameter("current");
 
 //菜单加载，我放在session中，如果你需要考虑session过期的问题，也可以放在一个缓存或静态对象中
 //或者每次都去数据库读取也行，但是不推荐每次去读取
-List<MenuInfo> menus = (List<MenuInfo>)request.getSession().getAttribute("menus");
-
+List<MenuInfo> menus = new ArrayList<MenuInfo>();
+Object obj = request.getSession().getAttribute("menus");
+if(obj!=null){
+	menus = (List<MenuInfo>)request.getSession().getAttribute("menus");
+}
 %>
         
         <div id="menu">

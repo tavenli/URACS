@@ -31,6 +31,27 @@
     	});
     }
     
+    function delMenu(id,msg){
+
+    	$.jBox.confirm("确定删除 ["+msg+"] 菜单吗？", "确认操作", function (v, h, f) {
+    	    if (v == 'ok'){
+    	    	
+    	    	$.post("<s:url value='/u/delMenu'/>",{id:id},function(responseText){
+    	    		if(responseText==true){
+    	    			$.jBox.info("操作成功，请刷新查看结果", "成功信息",{top: '20%'});
+    	    			//window.location.reload();
+    	    		}else{
+    	    			$.jBox.error("操作失败", "失败信息");
+    	    		}
+    	    	});
+
+    	    	
+    		}
+    	    return true; 
+    	},{top: '40%'});
+    	
+    }
+    
     $().ready(function(){
     	pilicat.alternately('list');
 
@@ -144,6 +165,9 @@
 						<td class="operation">
 							<a href="javascript:;" onclick="edit(${dataItem.id});">
 							 	<img src="<s:url value='/css/images/operation/pencil.png'/>" title="修改菜单信息"/>
+							 </a>
+							 <a href="javascript:;" onclick="delMenu(${dataItem.id},'${dataItem.menuName}');">
+							 	<img src="<s:url value='/css/images/operation/trashcan_delete.png'/>" title="删除菜单"/>
 							 </a>
 						</td>
 						

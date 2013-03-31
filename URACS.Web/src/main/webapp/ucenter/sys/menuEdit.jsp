@@ -36,9 +36,9 @@
 	    
 	    function afterPost(responseText, statusText, xhr, $form)  {
 	    	
-	    	if(responseText==true){
-	    		parent.loadPageData();
-	    		parent.$.jBox.tip("保存成功", "success", {timeout:2000});
+	    	if(responseText.resultStatus==true){
+	    		//parent.loadPageData();
+	    		parent.$.jBox.tip("保存成功，请刷新查看结果", "success", {timeout:2000});
 	    		parent.$.jBox.close(true);
 	    		
 	    		
@@ -97,6 +97,14 @@
 				<td>
 					<form:input path="menuEntity.menuCode"  cssClass="input rounded" size="25" />
 					<img title="目前菜单Code的作用是为了JSP中的显示焦点定位在那个菜单上" class="title2div" src="<s:url value='/css/images/operation/help.png'/>" width="16" height="16"/>
+				</td>
+				
+			</tr>
+			<tr class="even">
+				<td class="name">菜单Url：</td>
+				<td>
+					<form:input path="menuEntity.menuUrl"  cssClass="input rounded" size="50" />
+					<img title="菜单的Url地址" class="title2div" src="<s:url value='/css/images/operation/help.png'/>" width="16" height="16"/>
 				</td>
 				
 			</tr>

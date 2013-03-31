@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.slf4j.Logger;
@@ -12,7 +13,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.tavenli.entity.RoleEntity;
-import com.tavenli.entity.UserEntity;
 
 @Repository
 public class RoleDao extends BaseDao {
@@ -123,6 +123,33 @@ public class RoleDao extends BaseDao {
 		hql.append(" order by id desc");
 		
 		return super.queryPageList(hql.toString(), params, start, maxSize);
+	}
+	
+	public int updateRoleStatus(int id,int status){
+		String hql = "update RoleEntity set status=?  where id=?";
+		Query query = this.getEntityManager().createQuery(hql);
+		query.setParameter(1, status);
+		query.setParameter(2, id);
+		try {
+			return query.executeUpdate();
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		return -1;
+	}
+	
+	public int delRole(int id){
+		
+		String hql = "delete RoleEntity t where t.id=?";
+		
+		Query query = this.getEntityManager().createQuery(hql);
+		query.setParameter(1, id);
+		try {
+			return query.executeUpdate();
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		return -1;
 	}
 	
 	

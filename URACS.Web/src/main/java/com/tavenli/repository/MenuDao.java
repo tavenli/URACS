@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.slf4j.Logger;
@@ -99,5 +100,18 @@ public class MenuDao extends BaseDao {
 		return super.queryPageList(hql.toString(), params, start, maxSize);
 	}
 	
+	public int delMenu(int id){
+		
+		String hql = "delete MenuEntity t where t.id=?";
+		
+		Query query = this.getEntityManager().createQuery(hql);
+		query.setParameter(1, id);
+		try {
+			return query.executeUpdate();
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		return -1;
+	}
 	
 }

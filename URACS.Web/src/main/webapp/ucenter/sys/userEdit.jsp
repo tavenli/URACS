@@ -36,12 +36,12 @@
 	    
 	    function afterPost(responseText, statusText, xhr, $form)  {
 	    	
-	    	if(responseText==true){
-	    		parent.loadPageData();
-	    		parent.$.jBox.tip("保存成功", "success", {timeout:2000});
+	    	if(responseText.resultStatus==true){	    		
+	    		//parent.window.location.reload();
+	    		//parent.loadPageData();
+	    		parent.$.jBox.tip("保存成功，请刷新查看结果", "success", {timeout:2000});
 	    		parent.$.jBox.close(true);
-	    		
-	    		
+	    			    		
 	    	}else{
 	    		$.jBox.error("保存失败", "失败信息");
 	    	}

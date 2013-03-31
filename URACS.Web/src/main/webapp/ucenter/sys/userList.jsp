@@ -38,7 +38,7 @@
     	    	
     	    	$.post("<s:url value='/u/changeUserStatus'/>",{id:id,status:status},function(responseText){
     	    		if(responseText==true){
-    	    			$.jBox.info("操作成功", "成功信息",{top: '20%'});
+    	    			$.jBox.info("操作成功，请刷新查看结果", "成功信息",{top: '20%'});
     	    			//window.location.reload();
     	    		}else{
     	    			$.jBox.error("操作失败", "失败信息");
@@ -51,6 +51,57 @@
     	},{top: '40%'});
     	
     }
+    
+    function delUser(id,msg){
+
+    	$.jBox.confirm("确定删除 ["+msg+"] 用户吗？", "确认操作", function (v, h, f) {
+    	    if (v == 'ok'){
+    	    	
+    	    	$.post("<s:url value='/u/delUser'/>",{id:id},function(responseText){
+    	    		if(responseText==true){
+    	    			$.jBox.info("操作成功，请刷新查看结果", "成功信息",{top: '20%'});
+    	    			//window.location.reload();
+    	    		}else{
+    	    			$.jBox.error("操作失败", "失败信息");
+    	    		}
+    	    	});
+
+    	    	
+    		}
+    	    return true; 
+    	},{top: '40%'});
+    	
+    }
+    
+    function delUsers(){
+    	//批量删除用户
+    	var selectedItems = new Array();
+    	$("input[type=checkbox][name=cbitem]:checked").each(function() {selectedItems.push($(this).val());});
+    	
+    	if (selectedItems .length == 0){
+    		$.jBox.tip("没有选择批量删除的数据.", "warning",{top: '40%'});
+    	    return;
+    	}
+    	
+    	$.jBox.confirm("确定批量删除吗？", "批量操作确认", function (v, h, f) {
+    	    if (v == 'ok'){
+
+    	    	$.post("/u/delUsers",{userIds:selectedItems.join(',')},function(data){
+    	    		if(data>0){
+    	    			$.jBox.tip("批量删除 "+data+" 条，请刷新查看结果", "success",{top: '40%'});
+    	    			
+    	    		}else{
+    	    			$.jBox.error("批量删除失败", "失败信息");
+    	    		}
+    	    		
+    	    	});
+    	    	
+    		}
+    	    return true; 
+    	},{top: '40%'});
+    	
+    }
+
     
     $().ready(function(){
     	pilicat.alternately('list');
@@ -181,9 +232,12 @@
 		                            </a>
 								</c:otherwise>
 							</c:choose>
-							           
+							
 							 <a href="javascript:;" onclick="permission(${dataItem.id});">
 							 	<img src="<s:url value='/css/images/operation/member.png'/>" title="用户权限"/>
+							 </a>   
+							 <a href="javascript:;" onclick="delUser(${dataItem.id},'${dataItem.userName}');">
+							 	<img src="<s:url value='/css/images/operation/trashcan_delete.png'/>" title="删除用户"/>
 							 </a>
 							                 
 						</td>

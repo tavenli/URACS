@@ -31,6 +31,48 @@
     	});
     }
     
+    function delRole(id,msg){
+
+    	$.jBox.confirm("确定删除 ["+msg+"] 角色吗？", "确认操作", function (v, h, f) {
+    	    if (v == 'ok'){
+    	    	
+    	    	$.post("<s:url value='/u/delRole'/>",{id:id},function(responseText){
+    	    		if(responseText==true){
+    	    			$.jBox.info("操作成功，请刷新查看结果", "成功信息",{top: '20%'});
+    	    			//window.location.reload();
+    	    		}else{
+    	    			$.jBox.error("操作失败", "失败信息");
+    	    		}
+    	    	});
+
+    	    	
+    		}
+    	    return true; 
+    	},{top: '40%'});
+    	
+    }
+    
+    function changeRoleStatus(id,status){
+
+    	$.jBox.confirm("确定 "+(status==0?"禁用":"启用")+" 用户吗？", "确认操作", function (v, h, f) {
+    	    if (v == 'ok'){
+    	    	
+    	    	$.post("<s:url value='/u/changeRoleStatus'/>",{id:id,status:status},function(responseText){
+    	    		if(responseText==true){
+    	    			$.jBox.info("操作成功，请刷新查看结果", "成功信息",{top: '20%'});
+    	    			//window.location.reload();
+    	    		}else{
+    	    			$.jBox.error("操作失败", "失败信息");
+    	    		}
+    	    	});
+
+    	    	
+    		}
+    	    return true; 
+    	},{top: '40%'});
+    	
+    }
+    
     $().ready(function(){
     	pilicat.alternately('list');
 
@@ -166,7 +208,9 @@
 							 <a href="javascript:;" onclick="permission(${dataItem.id});">
 							 	<img src="<s:url value='/css/images/operation/folder.png'/>" title="角色权限"/>
 							 </a>
-							 
+							 <a href="javascript:;" onclick="delRole(${dataItem.id},'${dataItem.roleName}');">
+							 	<img src="<s:url value='/css/images/operation/trashcan_delete.png'/>" title="删除角色"/>
+							 </a>
 						</td>
 						
 					</tr>

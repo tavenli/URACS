@@ -31,6 +31,8 @@ public class MenuEntity {
 	private String menuUrl;
 	@Column(name = "urlTarget")
 	private String urlTarget;
+	@Column(name = "navMenu")
+	private int navMenu;
 	@Column(name = "sort")
 	private int sort;
 	@Column(name = "remark")
@@ -77,6 +79,12 @@ public class MenuEntity {
 	}
 	public void setUrlTarget(String urlTarget) {
 		this.urlTarget = urlTarget;
+	}	
+	public int getNavMenu() {
+		return navMenu;
+	}
+	public void setNavMenu(int navMenu) {
+		this.navMenu = navMenu;
 	}
 	public int getSort() {
 		return sort;

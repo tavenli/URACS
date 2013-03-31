@@ -120,7 +120,7 @@ public class USysController extends UBaseController {
 	
 	@RequestMapping("/menuAdd")
 	public String menuAdd(Model model,MenuEntity menuEntity) {
-
+		menuEntity.setNavMenu(1);
 		model.addAttribute("menuEntity", menuEntity);
 		return "ucenter/sys/menuEdit";
 	}

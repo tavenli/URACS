@@ -108,7 +108,15 @@
 				</td>
 				
 			</tr>
-			
+			<tr class="even">
+				<td class="name">在导航菜单中显示：</td>
+				<td>
+					<form:radiobutton path="menuEntity.navMenu" value="1"/>显示&nbsp;&nbsp;
+					<form:radiobutton path="menuEntity.navMenu" value="0"/>不显示&nbsp;&nbsp;		
+					<img title="如果为显示，则会在系统菜单中显示，如果为不显示，则不会出现在导航菜单中，但URL可以授权给角色" class="title2div" src="<s:url value='/css/images/operation/help.png'/>" width="16" height="16"/>
+				</td>
+				
+			</tr>
 		</tbody>
 		</table>
 		

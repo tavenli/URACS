@@ -21,13 +21,19 @@ public class UResourceService {
 	@Autowired
 	private UCenterService uCenterService;
 	
+		
+	public void reloadResourceForUser(HttpServletRequest request){
+		
+		this.loadMenus(request);
+		
+	}
 	
 	public void loadMenus(HttpServletRequest request){
 		
 		List<MenuInfo> menus = new ArrayList<MenuInfo>();
 		
 		//取得所有菜单
-		List<MenuEntity> allMenus = this.uCenterService.getAllMenus();
+		List<MenuEntity> allMenus = this.uCenterService.getAllNavMenus();
 		
 		for (MenuEntity menu : allMenus) {
 			//先遍历出第1级菜单
@@ -60,13 +66,7 @@ public class UResourceService {
 				
 	}
 	
-	
-	
-	public void reloadResourceForUser(HttpServletRequest request){
-		
-		this.loadMenus(request);
-		
-	}
+
 	
 	
 }

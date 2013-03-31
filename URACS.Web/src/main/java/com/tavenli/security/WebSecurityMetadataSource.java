@@ -23,7 +23,6 @@ import org.springframework.security.web.access.intercept.FilterInvocationSecurit
 import org.springframework.security.web.util.AntPathRequestMatcher;
 import org.springframework.security.web.util.RequestMatcher;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.tavenli.entity.MenuEntity;
 import com.tavenli.entity.RoleEntity;

@@ -174,6 +174,11 @@ public class UCenterService {
 		return this.roleDao.getRoles(1);
 	}
 	
+	public List<MenuEntity> getAllNavMenus(){
+		return this.menuDao.getMenus(1);
+		
+	}
+	
 	public List<MenuEntity> getAllMenus(){
 		return this.menuDao.getMenus();
 		
@@ -194,6 +199,7 @@ public class UCenterService {
 			updateEntity.setMenuName(menuName);
 			updateEntity.setMenuCode(menuEntity.getMenuCode());
 			updateEntity.setMenuUrl(menuEntity.getMenuUrl());
+			updateEntity.setNavMenu(menuEntity.getNavMenu());
 			updateEntity.setLastUpdate(DateUtil.getCurrentTime());
 
 			

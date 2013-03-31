@@ -118,6 +118,7 @@
                         <td class="field_head">菜单Code</td>
                         <td class="field_head">菜单Url</td>
                         <td class="field_head">urlTarget</td>
+                        <td class="field_head">菜单显示</td>
                         <td class="field_head">创建时间</td>
                         <td class="field_head">最后更新时间</td>
                         <td class="field_head">操作</td>
@@ -126,7 +127,7 @@
                     
                     <c:if test="${totalCount==0}">
                     <tr>
-                        <td colspan="7" class="field_head">没有相关数据</td>
+                        <td colspan="10" class="field_head">没有相关数据</td>
                     </tr>
                     </c:if>
                     
@@ -154,6 +155,21 @@
 						</td>
 						<td>	
 						${dataItem.urlTarget}												
+						</td>
+						<td>
+						
+						<c:choose>
+							<c:when test="${dataItem.navMenu==0}">
+								<font color='red'>隐藏</font>
+							</c:when>
+							<c:when test="${dataItem.navMenu==1}">
+								<font color='green'>显示</font>
+							</c:when>	
+							<c:otherwise>
+								<font color='gray'>未知:${dataItem.navMenu}</font>
+							</c:otherwise>
+						</c:choose>
+												
 						</td>
 						<td>	
                            <fmt:formatDate value="${dataItem.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>

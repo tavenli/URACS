@@ -29,6 +29,21 @@ public class MenuDao extends BaseDao {
 		}
 	}
 	
+	public List<MenuEntity> getMenus(int navMenu) {
+		List<MenuEntity> list = new ArrayList<MenuEntity>();
+		
+		String hql = "from MenuEntity where navMenu=?";
+		TypedQuery<MenuEntity> query = this.getEntityManager().createQuery(hql, MenuEntity.class);
+		query.setParameter(1, navMenu);
+		try {
+			list = query.getResultList();
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+
+		return list;
+	}
+	
 	public List<MenuEntity> getMenus() {
 		List<MenuEntity> list = new ArrayList<MenuEntity>();
 		

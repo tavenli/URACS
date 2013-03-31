@@ -102,6 +102,14 @@
     	
     }
 
+    function userRoleSet(userId){
+    	$.jBox("iframe:<s:url value='/u/userRoleSet'/>?userId="+userId, {
+    	    title: "用户授权",
+    	    width: 700,
+    	    height: 320,
+    	    buttons: {}
+    	});
+    }
     
     $().ready(function(){
     	pilicat.alternately('list');
@@ -233,7 +241,7 @@
 								</c:otherwise>
 							</c:choose>
 							
-							 <a href="javascript:;" onclick="permission(${dataItem.id});">
+							 <a href="javascript:;" onclick="userRoleSet(${dataItem.id});">
 							 	<img src="<s:url value='/css/images/operation/member.png'/>" title="用户权限"/>
 							 </a>   
 							 <a href="javascript:;" onclick="delUser(${dataItem.id},'${dataItem.userName}');">

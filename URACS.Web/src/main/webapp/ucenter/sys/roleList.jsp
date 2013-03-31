@@ -73,6 +73,15 @@
     	
     }
     
+    function roleResourceSet(roleId){
+    	$.jBox("iframe:<s:url value='/u/roleResourceSet'/>?roleId="+roleId, {
+    	    title: "角色资源授权",
+    	    width: 700,
+    	    height: 320,
+    	    buttons: {}
+    	});
+    }
+    
     $().ready(function(){
     	pilicat.alternately('list');
 
@@ -205,7 +214,7 @@
 								</c:otherwise>
 							</c:choose>
 							           
-							 <a href="javascript:;" onclick="permission(${dataItem.id});">
+							 <a href="javascript:;" onclick="roleResourceSet(${dataItem.id});">
 							 	<img src="<s:url value='/css/images/operation/folder.png'/>" title="角色权限"/>
 							 </a>
 							 <a href="javascript:;" onclick="delRole(${dataItem.id},'${dataItem.roleName}');">

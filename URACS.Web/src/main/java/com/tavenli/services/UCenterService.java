@@ -1,8 +1,10 @@
 package com.tavenli.services;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -15,6 +17,7 @@ import com.tavenli.entity.MenuEntity;
 import com.tavenli.entity.RoleEntity;
 import com.tavenli.entity.UserEntity;
 import com.tavenli.model.PageData;
+import com.tavenli.model.UserInfo;
 import com.tavenli.repository.MenuDao;
 import com.tavenli.repository.RoleDao;
 import com.tavenli.repository.UserDao;
@@ -115,6 +118,7 @@ public class UCenterService {
 	public RoleEntity getRole(int id){
 		return this.roleDao.getRoleById(id);
 	}
+	
 	
 	@Transactional
 	public int updateRoleStatus(int id,int status){
@@ -278,4 +282,62 @@ public class UCenterService {
 		
 	}
 	
+	@Transactional
+	public boolean saveUserRole(UserInfo userInfo) {
+		int userId = userInfo.getId();
+		//取用户
+		UserEntity userEntity = this.getUser(userId);
+		Set<RoleEntity> userRoles = new HashSet<RoleEntity>();
+		//提交的角色ID
+		List<Integer> roles = userInfo.getRoles();
+		for (Integer role : roles) {
+			RoleEntity roleEntity = this.getRole(role);
+			userRoles.add(roleEntity);
+		}
+		
+		userEntity.setRoles(userRoles);
+		
+		try {
+			this.userDao.update(userEntity);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			return false;
+		}
+
+		return true;
+		
+	}
+	
+	
+	@Transactional
+	public boolean saveRoleResource(int roleId,String[] menuIds) {
+		
+		RoleEntity roleEntity = this.getRole(roleId);
+		
+		Set<MenuEntity> menus = new HashSet<MenuEntity>();
+		//提交的菜单ID
+		for (String menuId : menuIds) {
+			MenuEntity menuEntity = this.getMenu(Integer.parseInt(menuId));
+			menus.add(menuEntity);
+			//取菜单下所有子菜单
+			List<MenuEntity> childMenus = this.menuDao.getChildMenus(menuEntity.getId());
+			for (MenuEntity child : childMenus) {
+				menus.add(child);
+			}
+		}
+
+		
+		roleEntity.setMenus(menus);
+		
+		try {
+			this.menuDao.update(roleEntity);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			return false;
+		}
+		
+		
+		
+		return true;
+	}
 }

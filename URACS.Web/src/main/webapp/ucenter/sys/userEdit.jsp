@@ -93,7 +93,7 @@
 				
 			</tr>
 			
-			<tr class="odd">
+			<tr class="even">
 				<td class="name">用户密码：</td>
 				<td>
 					<form:password path="userEntity.passWord" cssClass="input rounded" size="25" />

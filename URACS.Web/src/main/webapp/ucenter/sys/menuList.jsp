@@ -117,7 +117,6 @@
                         <td class="field_head">菜单名称</td>
                         <td class="field_head">菜单Code</td>
                         <td class="field_head">菜单Url</td>
-                        <td class="field_head">urlTarget</td>
                         <td class="field_head">菜单显示</td>
                         <td class="field_head">创建时间</td>
                         <td class="field_head">最后更新时间</td>
@@ -127,7 +126,7 @@
                     
                     <c:if test="${totalCount==0}">
                     <tr>
-                        <td colspan="10" class="field_head">没有相关数据</td>
+                        <td colspan="9" class="field_head">没有相关数据</td>
                     </tr>
                     </c:if>
                     
@@ -152,9 +151,6 @@
 						</td>
 						<td style="text-align:left;word-wrap:break-word;word-break:break-all;">
 						${dataItem.menuUrl}
-						</td>
-						<td>	
-						${dataItem.urlTarget}												
 						</td>
 						<td>
 						

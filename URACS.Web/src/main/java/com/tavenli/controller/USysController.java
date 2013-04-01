@@ -1,5 +1,10 @@
 package com.tavenli.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +16,7 @@ import com.tavenli.entity.MenuEntity;
 import com.tavenli.entity.RoleEntity;
 import com.tavenli.entity.UserEntity;
 import com.tavenli.model.PageData;
+import com.tavenli.model.UserInfo;
 import com.tavenli.security.WebUserDetails;
 import com.tavenli.services.UCenterService;
 import com.tavenli.services.UResourceService;
@@ -134,15 +140,42 @@ public class USysController extends UBaseController {
 	}
 	
 	@RequestMapping("/userRoleSet")
-	public String userRoleSet(Model model) {
+	public String userRoleSet(Model model,int userId) {
+		//取用户
+		UserEntity userEntity = this.uCenterService.getUser(userId);
+		//取所有角色
+		List<RoleEntity> allRoles = this.uCenterService.getAvailableRoles();
+
+		UserInfo userInfo = new UserInfo();
+		userInfo.setId(userEntity.getId());
+		userInfo.setUserName(userEntity.getUserName());
+		for (RoleEntity roleEntity : userEntity.getRoles()) {
+			userInfo.getRoles().add(roleEntity.getId());
+		}
+		
+		model.addAttribute("allRoles", allRoles);
+		model.addAttribute("userInfo", userInfo);
 		
 		return "ucenter/sys/userRoleSet";
 	}
 	
 	@RequestMapping("/roleResourceSet")
-	public String roleResourceSet(Model model) {
+	public String roleResourceSet(Model model,int roleId) {
+		
+		RoleEntity roleEntity = this.uCenterService.getRole(roleId);
+		
+		Set<MenuEntity> menus = roleEntity.getMenus();
+		List<Integer> menuIds = new ArrayList<Integer>();
+		for (MenuEntity menu : menus) {
+			menuIds.add(menu.getId());
+		}
+		
+		model.addAttribute("roleEntity", roleEntity);
+		model.addAttribute("menuIds", StringUtils.join(menuIds,","));
 		
 		return "ucenter/sys/roleResourceSet";
 	}
+	
+
 	
 }

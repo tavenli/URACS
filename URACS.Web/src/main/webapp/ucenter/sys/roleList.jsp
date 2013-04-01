@@ -77,7 +77,7 @@
     	$.jBox("iframe:<s:url value='/u/roleResourceSet'/>?roleId="+roleId, {
     	    title: "角色资源授权",
     	    width: 700,
-    	    height: 320,
+    	    height: 550,
     	    buttons: {}
     	});
     }

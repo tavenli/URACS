@@ -73,14 +73,14 @@
 		<ol></ol><span></span>
 		</div>
 		
-		<form id="form1" action="<s:url value='/u/saveUserRole'/>" method="post">
+		<form:form id="form1" commandName="userInfo" action="${pageContext.request.contextPath}/u/saveUserRole" method="post" >
 		<table class="update" cellpadding="0" cellspacing="1" border="0">
 			<tbody>
 			<tr>
 				<td class="name">用户名称：</td>
 				<td>
-				${userEntity.userName }
-				<input type="hidden" name="userId" value="${userEntity.id}" />
+				${userInfo.userName }
+				<input type="hidden" name="id" value="${userInfo.id}" />
 				</td>
 				
 			</tr>		
@@ -88,8 +88,8 @@
 			<tr class="even">
 				<td class="name">赋予的角色：</td>
 				<td>
-					
-					
+					<form:checkboxes items="${allRoles }" path="roles" itemValue="id" itemLabel="roleName"  delimiter="&nbsp;" />
+
 				</td>
 				
 			</tr>
@@ -107,7 +107,7 @@
 			</tbody>
 		</table>
 
-		</form>
+		</form:form>
 	</div>
 	
 </body>

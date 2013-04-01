@@ -79,8 +79,8 @@
 		<div class="error rounded top_error hide">
 		<ol></ol><span></span>
 		</div>
-		
-		<form id="form1" action="<s:url value='/u/saveRole'/>" method="post">
+
+		<form:form id="form1" commandName="roleEntity" action="${pageContext.request.contextPath}/u/saveRole" method="post" >
 		<table class="update" cellpadding="0" cellspacing="1" border="0">
 			<tbody>
 			<tr>
@@ -88,14 +88,14 @@
 				<td>
 				<input name="roleName" type="text" value="${roleEntity.roleName }" size="25" maxlength="11" class="input rounded"/>
 				
-				<form:hidden path="roleEntity.id" />
+				<form:hidden path="id" />
 				</td>
 				
 			</tr>		
 			<tr class="even">
 				<td class="name">当前状态：</td>
 				<td>
-					<form:select path="roleEntity.status" > 						
+					<form:select path="status" > 						
 						<form:option value="1"  label="启用"/>
 						<form:option value="0"  label="禁用" />
 					</form:select>
@@ -118,7 +118,7 @@
 			</tbody>
 		</table>
 
-		</form>
+		</form:form>
 	</div>
 	
 </body>

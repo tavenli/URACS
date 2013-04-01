@@ -1,6 +1,7 @@
 package com.tavenli.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
@@ -17,7 +18,10 @@ import com.tavenli.entity.MenuEntity;
 import com.tavenli.entity.RoleEntity;
 import com.tavenli.entity.UserEntity;
 import com.tavenli.model.PageData;
+import com.tavenli.model.TreeData;
+import com.tavenli.model.UserInfo;
 import com.tavenli.services.UCenterService;
+import com.tavenli.services.UResourceService;
 import com.tavenli.utils.PageNavUtil;
 import com.tavenli.utils.ValidatorUtil;
 
@@ -29,6 +33,8 @@ public class UAjaxController extends UBaseController {
 	
 	@Autowired
 	private UCenterService uCenterService;
+	@Autowired
+	private UResourceService uResourceService;
 	
 	@RequestMapping("/queryUsers")
 	@ResponseBody
@@ -168,6 +174,55 @@ public class UAjaxController extends UBaseController {
 		menuEntity.setMenuName(menuName);
 		
 		resultStatus = this.uCenterService.saveMenu(menuEntity);
+		
+		resMap.put("resultStatus", resultStatus);
+		return resMap;
+		
+	}
+	
+	
+	@RequestMapping(value = "/saveUserRole", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> saveUserRole(Model model,UserInfo userInfo) {
+		boolean resultStatus = true;
+		Map<String, Object> resMap = new HashMap<String, Object>();
+		
+		int userId = userInfo.getId();
+		if(userId<=0){
+			resultStatus = false;
+			resMap.put("errorMsg", "没有指定用户");
+			resMap.put("resultStatus", resultStatus);
+			return resMap;
+		}
+		
+		
+		resultStatus = this.uCenterService.saveUserRole(userInfo);
+		
+		resMap.put("resultStatus", resultStatus);
+		return resMap;
+		
+	}
+	
+	@RequestMapping(value = "/getMenuTree", method = RequestMethod.POST)
+	@ResponseBody
+	public List<TreeData> getMenuTree(Model model) {
+		
+		List<TreeData> treeData = this.uResourceService.getTreeData();
+		
+		return treeData;
+	}
+	
+	
+	@RequestMapping(value = "/saveRoleResource", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> saveRoleResource(Model model,int roleId,String menuIds) {
+		boolean resultStatus = true;
+		Map<String, Object> resMap = new HashMap<String, Object>();
+		
+		//需要注意的是jsTree如果一个节点下所有子节点都被选中，则只会返回这个父节点的ID，下面的子节点ID不会返回
+		String[] mIds = menuIds.split(",");
+		
+		resultStatus = this.uCenterService.saveRoleResource(roleId,mIds);
 		
 		resMap.put("resultStatus", resultStatus);
 		return resMap;

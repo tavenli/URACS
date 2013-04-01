@@ -10,7 +10,129 @@
 
     <%@ include file="../../common/page_head.jsp" %>
 	
+	<script type="text/javascript" src="<s:url value='/js/jstree/jquery.jstree.js'/>"></script>
+	    
     <script type="text/javascript">
+    
+    	$(function () {
+    		
+    		//创建一个树的实例
+    		$("#menuTree").jstree({  
+                "json_data" : {
+                    "ajax" : {   
+                    	"type": "POST",
+                        "url" : "<s:url value='/u/getMenuTree'/>"  
+                    }
+                },  
+             "themes" : {  
+                 "icons" : false 
+             },             
+             "plugins" : [ "themes", "json_data", "checkbox" ]
+            });
+    		
+    		
+    		//绑定事件
+    		$("#menuTree").bind("loaded.jstree", function (event, data) {
+    			//展开所有节点
+    			data.inst.open_all(-1);    			
+    			//
+    			initTree();
+    		});
+
+
+    		
+    	});
+    	
+        function initTree()
+        {
+         //初始化复选框
+         var menuIds = "${menuIds}";
+     
+         var initMenus = menuIds.split(",");
+         $("#menuTree").find("li").each(function()
+         {
+         	
+         	 	var tempid=$(this).children("a").attr("id");
+         	 	if(tempid != "")
+         	 	{
+         	 		for(var i = 0; i<initMenus.length; i++)
+         	 		{
+ 	        	 		
+ 	        	 		if(tempid == initMenus[i])
+ 	        	 		{
+ 	        	 		
+ 	        	 			$(this).removeClass("jstree-unchecked").addClass("jstree-checked");
+ 	        	 			$(this).removeClass("jstree-closed").addClass("jstree-open");
+ 	        	 		}
+         	 		}	
+         	 	}
+         	 	
+         	 });
+         
+         	 $("#menuTree > ul > li").each(function()
+         	 {
+ 	        	var tempid=$(this).children("a").attr("id");
+         	 	if(tempid != "")
+         	 	{
+         	 		for(var i = 0; i<initMenus.length; i++)
+         	 		{
+ 	        	 		if(tempid == initMenus[i])
+ 	        	 		{
+ 	        	 			var flag = false;
+ 	        	 			
+ 	        	 			$(this).find("li").each(function(){
+ 	        	 				if($(this).hasClass("jstree-unchecked"))
+ 	        	 				{
+ 	        	 					flag = true;
+ 	        	 				} 
+ 	        	 			});
+ 	        	 			
+ 	        	 			if(flag)
+ 	        	 			{
+ 	        	 				$(this).removeClass("jstree-checked").addClass("jstree-undetermined");
+ 	        	 			}
+ 	        	 		}
+         	 		}	
+         	 	}
+         	 });
+         	 
+ 		}
+    		
+ 		function getSelect()
+ 		{
+ 			//当一个目录下的所有child均被选中时，则get_checked仅可得到parent Item的信息，
+ 			//否则可以取得每个被选中的child Item的信息
+ 			//取得结点的名称字符串使用：get_text 方法 取得其他属性使用 .arrr 方法
+ 			//var nodes = $("#menuTree").jstree("checkbox").get_checked();
+ 			//$.each(nodes, function(i, n) { 
+ 				//alert($("#menuTree").jstree("get_text",$(n))+"/"+$(n).attr("id")); 
+ 			//}); 
+ 			
+ 			var menuIds="";	
+ 			 $("#menuTree").jstree("get_checked").each(function(i, n) {
+ 			 		
+ 			 		menuIds += $(this).children("a").attr("id")+",";
+ 			 		
+ 			 });
+ 			 
+ 			 if(menuIds.indexOf(",")>0){
+   				menuIds=menuIds.substring(0,menuIds.length-1);
+   			 }
+ 			 
+ 			 $("input[name='menuIds']").val(menuIds);
+ 			 
+ 			 return true;
+ 		}
+ 		
+ 		function selectAllNode(obj){
+ 			
+ 			if($(obj).attr("checked")){
+ 				$("#menuTree").jstree("checkbox").check_all();
+ 			}else{
+ 				$("#menuTree").jstree("checkbox").uncheck_all();
+ 			}
+ 		}
+    
 		$(function(){
 			pilicat.title2div('title2div');
 			pilicat.keysubmit('form1','submit',true);
@@ -42,7 +164,7 @@
 	    }
 	    
 	    function submitForm(){
-	    	
+	    	getSelect();
 	    }
 	    
 	</script>
@@ -73,22 +195,36 @@
 		<ol></ol><span></span>
 		</div>
 		
-		<form id="form1" action="<s:url value='/u/saveRoleResource'/>" method="post">
+		<form id="form1" action="<s:url value='/u/saveRoleResource'/>" method="post" onsubmit="">
 		<table class="update" cellpadding="0" cellspacing="1" border="0">
 			<tbody>
 			<tr>
-				<td class="name">角色名称：</td>
 				<td>
-				${roleEntity.roleName }
+				角色名称：
+				<span style="color:blue;">${roleEntity.roleName }</span>
 				<input type="hidden"  name="roleId" value="${roleEntity.id}" />
+				<input type="hidden"  name="menuIds" value="${menuIds}" />
 				</td>
 				
 			</tr>		
 			
 			<tr class="even">
-				<td class="name">赋予的资源：</td>
 				<td>
+					赋予的资源：
 					
+				</td>
+				
+			</tr>
+			<tr class="even">
+				<td>
+					<input name="allChkbox" id="allChkbox" type="checkbox" onclick="selectAllNode(this);" />
+					全选/取消
+				</td>
+				
+			</tr>
+			<tr class="even">				
+				<td>										
+					<div id="menuTree"></div>
 					
 				</td>
 				

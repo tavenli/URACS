@@ -46,7 +46,7 @@ public class UserEntity {
 	/**
 	 * 用户和角色的关系
 	 */
-	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinTable(name = "t_app_user_role", joinColumns = { @JoinColumn(name = "userId") }, inverseJoinColumns = { @JoinColumn(name = "roleId") })	
 	private Set<RoleEntity> roles;
 

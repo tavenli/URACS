@@ -9,7 +9,7 @@ URACS
 <br/>
 例子使用的是MySQL数据库，也可以支持其它数据库，
 <br/>
-使用 CreateDb_MySQL.sql 创建的数据库，然后将 URACS.Web.war ![下载War包](http://pan.baidu.com/share/link?shareid=437645&uk=1761985937) 部署到 Tomcat下，
+使用 CreateDb_MySQL.sql 创建的数据库，然后将 URACS.Web.war [下载War包](http://pan.baidu.com/share/link?shareid=437645&uk=1761985937) 部署到 Tomcat下，
 <br/>
 数据库连接默认使用root用户，密码123456（可修改 jdbc-app.properties 文件）
 <br/>

@@ -6,6 +6,10 @@ URACS
 <br/>
 程序框架版本说明：Spring MVC 3.0.6 + Spring Security 3.1.3 + Hibernate 3.6.10
 
+
+<br/>
+运行演示例子：
+<br/>
 <br/>
 例子使用的是MySQL数据库，也可以支持其它数据库
 <br/>

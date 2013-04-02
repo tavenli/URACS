@@ -4,7 +4,7 @@ URACS
 统一角色访问控制系统(Unified Role Access Control System)，是基于Spring Security 3实现的权限控制系统
 
 <br/>
-程序框架版本说明：Spring MVC 3.2.0 + Spring Security 3.1.3 + Hibernate 3.6.10
+程序框架版本说明：Spring MVC 3.0.6 + Spring Security 3.1.3 + Hibernate 3.6.10
 
 <br/>
 使用 CreateDb_MySQL.sql 创建的数据库，可使用超级用户 admin，密码 admin 登录。

@@ -74,7 +74,7 @@ public class USysController extends UBaseController {
 		
 		UserEntity userEntity = this.uCenterService.getUser(userId);
 		model.addAttribute("userEntity", userEntity);
-		return "ucenter/sys/userEdit";
+		return "ucenter/sys/pwdEdit";
 	}
 	
 	@RequestMapping("/roles")

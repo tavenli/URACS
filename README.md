@@ -6,12 +6,20 @@ URACS
 <br/>
 程序框架版本说明：Spring MVC 3.2.0 + Spring Security 3.1.3 + Hibernate 3.6.10
 
+<br/>
+使用 CreateDb_MySQL.sql 创建的数据库，可使用超级用户 admin，密码 admin 登录。
 
 <br/>
 开发者：李锡远
 <br/>
+人称：远哥
+<br/>
 博客：http://taven.cnblogs.com
 <br/>
+QQ:17020415
+<br/>
+
+
 
 <br/>
 ![Page01](https://raw.github.com/tavenli/URACS/master/Screenshots/Page01.png)

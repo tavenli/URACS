@@ -20,6 +20,7 @@ import com.tavenli.entity.UserEntity;
 import com.tavenli.model.PageData;
 import com.tavenli.model.TreeData;
 import com.tavenli.model.UserInfo;
+import com.tavenli.security.WebUserDetails;
 import com.tavenli.services.UCenterService;
 import com.tavenli.services.UResourceService;
 import com.tavenli.utils.PageNavUtil;
@@ -223,6 +224,41 @@ public class UAjaxController extends UBaseController {
 		String[] mIds = menuIds.split(",");
 		
 		resultStatus = this.uCenterService.saveRoleResource(roleId,mIds);
+		
+		resMap.put("resultStatus", resultStatus);
+		return resMap;
+		
+	}
+	
+	@RequestMapping(value = "/saveUserPwd", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> saveUserPwd(Model model,String passWord,String rePassWord) {
+		boolean resultStatus = true;
+		Map<String, Object> resMap = new HashMap<String, Object>();
+		
+		if(StringUtils.isBlank(passWord) || StringUtils.isBlank(rePassWord)){
+			resultStatus = false;
+			resMap.put("errorMsg", "密码不能为空");
+			resMap.put("resultStatus", resultStatus);
+			return resMap;
+		}
+		
+		if(!passWord.equals(rePassWord)){
+			resultStatus = false;
+			resMap.put("errorMsg", "两次输入的密码不一致");
+			resMap.put("resultStatus", resultStatus);
+			return resMap;
+		}
+		
+		//取当前登录用户
+		WebUserDetails userInfo = this.getUserInfo();
+		int userId = userInfo.getUserId();
+		
+		UserEntity userEntity = this.uCenterService.getUser(userId);
+		
+		userEntity.setPassWord(passWord);
+		
+		resultStatus = this.uCenterService.saveUser(userEntity);
 		
 		resMap.put("resultStatus", resultStatus);
 		return resMap;

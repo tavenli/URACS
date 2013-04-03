@@ -84,6 +84,14 @@
 		<table class="update" cellpadding="0" cellspacing="1" border="0">
 			<tbody>
 			<tr>
+				<td class="name">父菜单：</td>
+				<td>
+				
+				<form:select path="menuEntity.parentId"  items="${parentMenus}"  itemValue="id"  itemLabel="menuName" ></form:select>
+				</td>
+				
+			</tr>
+			<tr>
 				<td class="name">菜单名称：</td>
 				<td>
 				<input name="menuName" type="text" value="${menuEntity.menuName }" size="25" maxlength="11" class="input rounded"/>

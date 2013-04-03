@@ -201,6 +201,7 @@ public class UCenterService {
 			MenuEntity updateEntity = this.menuDao.getMenuById(menuId);
 			
 			updateEntity.setMenuName(menuName);
+			updateEntity.setParentId(menuEntity.getParentId());
 			updateEntity.setMenuCode(menuEntity.getMenuCode());
 			updateEntity.setMenuUrl(menuEntity.getMenuUrl());
 			updateEntity.setNavMenu(menuEntity.getNavMenu());

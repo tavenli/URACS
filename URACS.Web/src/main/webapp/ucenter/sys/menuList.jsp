@@ -16,7 +16,7 @@
     	$.jBox("iframe:<s:url value='/u/menuAdd'/>", {
     	    title: "添加菜单",
     	    width: 700,
-    	    height: 320,
+    	    height: 380,
     	    buttons: {}
     	});
     }
@@ -26,7 +26,7 @@
     	$.jBox("iframe:<s:url value='/u/menuEdit'/>?id="+id, {
     	    title: "修改菜单",
     	    width: 700,
-    	    height: 320,
+    	    height: 380,
     	    buttons: {}
     	});
     }

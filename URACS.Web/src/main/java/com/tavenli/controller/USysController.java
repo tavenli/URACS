@@ -127,7 +127,16 @@ public class USysController extends UBaseController {
 	@RequestMapping("/menuAdd")
 	public String menuAdd(Model model,MenuEntity menuEntity) {
 		menuEntity.setNavMenu(1);
+		
+		List<MenuEntity> parentMenus = this.uCenterService.getChildMenus(0);
+		MenuEntity rootMenu = new MenuEntity();
+		rootMenu.setId(0);
+		rootMenu.setMenuName("--顶级菜单--");
+		parentMenus.add(0, rootMenu);
+		
 		model.addAttribute("menuEntity", menuEntity);
+		model.addAttribute("parentMenus", parentMenus);
+		
 		return "ucenter/sys/menuEdit";
 	}
 	
@@ -135,7 +144,16 @@ public class USysController extends UBaseController {
 	public String menuEdit(Model model,int id) {
 		
 		MenuEntity menuEntity = this.uCenterService.getMenu(id);
+		
+		List<MenuEntity> parentMenus = this.uCenterService.getChildMenus(0);
+		MenuEntity rootMenu = new MenuEntity();
+		rootMenu.setId(0);
+		rootMenu.setMenuName("--顶级菜单--");
+		parentMenus.add(0, rootMenu);
+		
 		model.addAttribute("menuEntity", menuEntity);
+		model.addAttribute("parentMenus", parentMenus);
+		
 		return "ucenter/sys/menuEdit";
 	}
 	

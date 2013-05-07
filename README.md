@@ -38,6 +38,10 @@ QQ:17020415
 <br/>
 
 
+<br/>
+注意：因为没有提交项目的settings，所以请导入Maven项目后，自己开启eclipse的Facets设置。
+<br/>
+![project](https://raw.github.com/tavenli/URACS/master/Screenshots/project.png)
 
 <br/>
 ![Page01](https://raw.github.com/tavenli/URACS/master/Screenshots/Page01.png)

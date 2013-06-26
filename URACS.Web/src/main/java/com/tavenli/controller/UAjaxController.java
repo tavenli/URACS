@@ -20,6 +20,7 @@ import com.tavenli.entity.UserEntity;
 import com.tavenli.model.PageData;
 import com.tavenli.model.TreeData;
 import com.tavenli.model.UserInfo;
+import com.tavenli.security.WebSecurityMetadataSource;
 import com.tavenli.security.WebUserDetails;
 import com.tavenli.services.UCenterService;
 import com.tavenli.services.UResourceService;
@@ -36,6 +37,8 @@ public class UAjaxController extends UBaseController {
 	private UCenterService uCenterService;
 	@Autowired
 	private UResourceService uResourceService;
+	@Autowired
+	private WebSecurityMetadataSource webSecurityMetadataSource;
 	
 	@RequestMapping("/queryUsers")
 	@ResponseBody
@@ -224,6 +227,10 @@ public class UAjaxController extends UBaseController {
 		String[] mIds = menuIds.split(",");
 		
 		resultStatus = this.uCenterService.saveRoleResource(roleId,mIds);
+		if(resultStatus){
+			//角色权限改变，重新更新资源和角色关系
+			webSecurityMetadataSource.reloadResource();
+		}
 		
 		resMap.put("resultStatus", resultStatus);
 		return resMap;

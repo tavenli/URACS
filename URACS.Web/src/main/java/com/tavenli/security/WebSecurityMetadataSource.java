@@ -67,40 +67,44 @@ public class WebSecurityMetadataSource implements FilterInvocationSecurityMetada
 		//取得当前系统所有可用角色
 		List<RoleEntity> roles = this.uCenterService.getAvailableRoles();
 		for (RoleEntity role : roles) {
-			//这里的 role 参数为自己定义的，要和 UserDetailsService 中的 SimpleGrantedAuthority 参数对应
-			//role 参数也可以直接使用角色名
-			ConfigAttribute ca = new SecurityConfig("ROLE_"+role.getId());
-			//取角色有哪些资源的权限
-			Set<MenuEntity> menus = role.getMenus();
-			for (MenuEntity menu : menus) {
-				String menuUrl = menu.getMenuUrl();
-				if(StringUtils.isBlank(menuUrl)){
-					//不是菜单地址，跳过
-					continue;
-				}
-				
-				//如果是URL资源，则建立角色与资源关系
-				if(resourceMap.containsKey(menuUrl)) {
-					
-    				resourceMap.get(menuUrl).add(ca);
-    				
-    			} else {
-    				
-    	        	Collection<ConfigAttribute> atts = new ArrayList<ConfigAttribute>();
-    	        	atts.add(ca);
-    				resourceMap.put(menuUrl, atts);
-    				
-    			}
-					
-				
-			}
+			this.loadRole(role);
 			
-		}
-		
+		}		
 		
 		//为超级管理员添加所有资源权限
 		this.initSuperUserResource();
 		
+		
+	}
+		
+	private void loadRole(RoleEntity role){
+		
+		//这里的 role 参数为自己定义的，要和 UserDetailsService 中的 SimpleGrantedAuthority 参数对应
+		//role 参数也可以直接使用角色名
+		ConfigAttribute ca = new SecurityConfig("ROLE_"+role.getId());
+		//取角色有哪些资源的权限
+		Set<MenuEntity> menus = role.getMenus();
+		for (MenuEntity menu : menus) {
+			String menuUrl = menu.getMenuUrl();
+			if(StringUtils.isBlank(menuUrl)){
+				//不是菜单地址，跳过
+				continue;
+			}
+			
+			//如果是URL资源，则建立角色与资源关系
+			if(resourceMap.containsKey(menuUrl)) {
+				
+				resourceMap.get(menuUrl).add(ca);
+				
+			} else {
+				
+	        	Collection<ConfigAttribute> atts = new ArrayList<ConfigAttribute>();
+	        	atts.add(ca);
+				resourceMap.put(menuUrl, atts);
+				
+			}				
+			
+		}
 		
 	}
 	
@@ -167,6 +171,11 @@ public class WebSecurityMetadataSource implements FilterInvocationSecurityMetada
 	@Override
 	public boolean supports(Class<?> clazz) {
 		return FilterInvocation.class.isAssignableFrom(clazz);
+	}
+	
+	public void reloadResource(){
+		//
+		this.initResource();
 	}
 
 }

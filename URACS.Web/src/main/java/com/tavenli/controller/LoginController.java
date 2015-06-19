@@ -12,6 +12,7 @@ import nl.captcha.Captcha;
 import nl.captcha.backgrounds.TransparentBackgroundProducer;
 import nl.captcha.gimpy.DropShadowGimpyRenderer;
 import nl.captcha.servlet.CaptchaServletUtil;
+import nl.captcha.text.renderer.ColoredEdgesWordRenderer;
 import nl.captcha.text.renderer.DefaultWordRenderer;
 import nl.captcha.text.renderer.WordRenderer;
 
@@ -55,8 +56,8 @@ public class LoginController {
 		fonts.add(new Font("Courier", 3, 32));
 		fonts.add(new Font("Arial", 1, 32));
 	    
-		//WordRenderer wordRenderer = new ColoredEdgesWordRenderer(colors, fonts);
-		WordRenderer wordRenderer = new DefaultWordRenderer(colors, fonts);
+		WordRenderer wordRenderer = new ColoredEdgesWordRenderer(colors, fonts);
+		//WordRenderer wordRenderer = new DefaultWordRenderer(colors, fonts);
 		
 		Captcha captcha = new Captcha.Builder(150, 50).addText(wordRenderer).gimp(new DropShadowGimpyRenderer())
 				.addBackground(new TransparentBackgroundProducer()).build();
